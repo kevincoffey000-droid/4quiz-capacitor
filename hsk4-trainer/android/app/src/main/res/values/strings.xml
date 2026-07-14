@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">4Quiz</string>
+    <string name="title_activity_main">4Quiz</string>
+    <string name="package_name">com.kevincoffey.quiz4</string>
+    <string name="custom_url_scheme">com.kevincoffey.quiz4</string>
+</resources>
