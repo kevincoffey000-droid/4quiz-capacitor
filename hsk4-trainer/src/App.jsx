@@ -1053,8 +1053,8 @@ const STYLES = `
   .theme-toggle.is-light .theme-toggle-knob { transform: translateX(26px); }
   .title { font-family: 'Noto Serif SC', serif; font-size: 2.2rem; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.08em; margin-bottom: 4px; text-align: center; }
   .subtitle { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; }
-  .subtitle-btn { background: none; border: none; padding: 0; font-family: inherit; cursor: pointer; display: inline-flex; align-items: center; gap: 3px; }
-  .subtitle-caret { font-size: 0.85em; opacity: 0.7; }
+  .subtitle-caret-btn { background: none; border: none; padding: 0 2px; margin: 0; font-family: inherit; cursor: pointer; vertical-align: middle; }
+  .subtitle-caret { display: inline-block; font-size: 0.8em; color: var(--text-muted); opacity: 0.75; transform: translateY(-3px); }
   .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 420px; }
   .mode-btn { background: var(--bg-mode-btn); border: 1px solid var(--border-default); border-radius: 10px; padding: 18px 14px; cursor: pointer; text-align: left; transition: all 0.15s; color: var(--text-primary); }
   .mode-btn:hover { border-color: var(--accent-gold); background: var(--bg-card-hover); }
@@ -1372,9 +1372,13 @@ export default function App() {
           </button>
         </div>
         <div className="title">HSK 4</div>
-        <button type="button" className="subtitle subtitle-btn">
-          New HSK 3.0 Level 4 · {totalWords} words <span className="subtitle-caret">⌄</span>
-        </button>
+        <div className="subtitle">
+          New HSK 3.0
+          <button type="button" className="subtitle-caret-btn" aria-label="Change HSK standard version"><span className="subtitle-caret">⌄</span></button>
+          {" "}Level 4
+          <button type="button" className="subtitle-caret-btn" aria-label="Change HSK level"><span className="subtitle-caret">⌄</span></button>
+          {" "}· {totalWords} words
+        </div>
         <div className="range-box">
           <div className="range-header">
             <span className="mastery-label">Word Range</span>
