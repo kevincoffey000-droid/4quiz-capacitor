@@ -1052,7 +1052,7 @@ const STYLES = `
   .level-tabs-svg { position: absolute; top: 0; left: 0; }
   .level-tabs-svg .lt-bg { fill: var(--bg-app); }
   .level-tabs-svg .lt-stroke-group { fill: none; stroke: var(--text-muted); stroke-width: 0.9; stroke-linecap: round; opacity: 0.75; }
-  .level-tab-btn { position: absolute; left: 6px; top: 0; height: 27px; display: flex; align-items: flex-end; padding-bottom: 3px; background: none; border: none; padding-left: 0; cursor: pointer; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+  .level-tab-btn { position: absolute; left: 0; top: 0; width: 51px; height: 27px; display: flex; align-items: center; justify-content: center; background: none; border: none; padding: 0; cursor: pointer; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
   .theme-toggle { width: 56px; height: 30px; border-radius: 15px; background: var(--bg-card); border: 1px solid var(--border-default); position: relative; cursor: pointer; padding: 0; transition: background 0.2s, border-color 0.2s; }
   .theme-toggle-knob { position: absolute; top: 2px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 13px; transition: transform 0.2s ease; }
   .theme-toggle.is-light .theme-toggle-knob { transform: translateX(26px); }
@@ -1369,7 +1369,7 @@ export default function App() {
             <svg className="level-tabs-svg" width="78" height="34" viewBox="0 0 78 34">
               <rect className="lt-bg" x="0" y="0" width="78" height="34" />
               <g className="lt-stroke-group">
-                <path d="M 0 27 L 51 27 C 60 27 62 24 65 17 C 68 10 71 3 74 0" />
+                <path d="M 0 27 L 51 27 C 60 27 62 24 65 17 L 72.3 0" />
               </g>
             </svg>
             <button type="button" className="level-tab-btn">HSK 4</button>
