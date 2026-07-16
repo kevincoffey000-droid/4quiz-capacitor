@@ -1048,11 +1048,11 @@ const STYLES = `
   }
   .app { min-height: 100vh; background: var(--bg-app); color: var(--text-primary); font-family: 'Space Mono', monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; transition: background 0.2s, color 0.2s; }
   .top-bar { width: 100%; max-width: 420px; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-  .level-tabs { position: relative; width: 88px; height: 34px; margin-top: -6px; }
+  .level-tabs { position: relative; width: 78px; height: 34px; margin-top: -6px; }
   .level-tabs-svg { position: absolute; top: 0; left: 0; }
   .level-tabs-svg .lt-bg { fill: var(--bg-app); }
-  .level-tabs-svg .lt-stroke-group { fill: none; stroke: var(--accent-gold-dim); stroke-width: 0.9; stroke-linecap: round; opacity: 0.75; }
-  .level-tab-btn { position: absolute; left: 6px; top: 0; height: 34px; display: flex; align-items: center; background: none; border: none; padding: 0; cursor: pointer; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-gold-dim); }
+  .level-tabs-svg .lt-stroke-group { fill: none; stroke: var(--text-muted); stroke-width: 0.9; stroke-linecap: round; opacity: 0.75; }
+  .level-tab-btn { position: absolute; left: 6px; top: 0; height: 34px; display: flex; align-items: center; background: none; border: none; padding: 0; cursor: pointer; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
   .theme-toggle { width: 56px; height: 30px; border-radius: 15px; background: var(--bg-card); border: 1px solid var(--border-default); position: relative; cursor: pointer; padding: 0; transition: background 0.2s, border-color 0.2s; }
   .theme-toggle-knob { position: absolute; top: 2px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 13px; transition: transform 0.2s ease; }
   .theme-toggle.is-light .theme-toggle-knob { transform: translateX(26px); }
@@ -1366,12 +1366,12 @@ export default function App() {
       <div className="app">
         <div className="top-bar">
           <div className="level-tabs">
-            <svg className="level-tabs-svg" width="88" height="34" viewBox="0 0 88 34">
-              <rect className="lt-bg" x="0" y="0" width="88" height="34" />
+            <svg className="level-tabs-svg" width="78" height="34" viewBox="0 0 78 34">
+              <rect className="lt-bg" x="0" y="0" width="78" height="34" />
               <g className="lt-stroke-group">
-                <path d="M 0 7 L 49 7 C 60.25 7 65.25 12 71.5 17" />
-                <path d="M 71.5 17 C 68.5 24 66.5 27 57.5 27 L 0 27" />
-                <path d="M 71.5 17 L 84 7" />
+                <path d="M 0 7 L 49 7 C 57 7 60.55 12 65 17" />
+                <path d="M 65 17 C 62 24 60 27 51 27 L 0 27" />
+                <path d="M 65 17 L 73.9 7" />
               </g>
             </svg>
             <button type="button" className="level-tab-btn">HSK 4</button>
