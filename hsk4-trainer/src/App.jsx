@@ -1048,10 +1048,10 @@ const STYLES = `
   }
   .app { min-height: 100vh; background: var(--bg-app); color: var(--text-primary); font-family: 'Space Mono', monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; transition: background 0.2s, color 0.2s; }
   .top-bar { width: 100%; max-width: 420px; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-  .level-tabs { position: relative; width: 72px; height: 34px; }
+  .level-tabs { position: relative; width: 72px; height: 34px; margin-top: -6px; }
   .level-tabs-svg { position: absolute; top: 0; left: 0; }
   .level-tabs-svg .lt-bg { fill: var(--bg-app); }
-  .level-tabs-svg .lt-stroke-group { fill: none; stroke: var(--border-default); stroke-width: 1; stroke-linecap: round; }
+  .level-tabs-svg .lt-stroke-group { fill: none; stroke: var(--accent-gold-dim); stroke-width: 1.1; stroke-linecap: round; }
   .level-tab-btn { position: absolute; left: 6px; top: 0; height: 34px; display: flex; align-items: center; background: none; border: none; padding: 0; cursor: pointer; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent-gold); }
   .theme-toggle { width: 56px; height: 30px; border-radius: 15px; background: var(--bg-card); border: 1px solid var(--border-default); position: relative; cursor: pointer; padding: 0; transition: background 0.2s, border-color 0.2s; }
   .theme-toggle-knob { position: absolute; top: 2px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 13px; transition: transform 0.2s ease; }
@@ -1369,9 +1369,9 @@ export default function App() {
             <svg className="level-tabs-svg" width="72" height="34" viewBox="0 0 72 34">
               <rect className="lt-bg" x="0" y="0" width="72" height="34" />
               <g className="lt-stroke-group">
-                <path d="M 0 7 L 41 7 C 51 7 55 12 61 17" />
-                <path d="M 61 17 C 55 22 50 27 38 27 L 0 27" />
-                <path d="M 61 17 C 63 14.6 65 11.5 67 7" />
+                <path d="M 0 7 L 49 7 C 56 7 58 10 61 17" />
+                <path d="M 61 17 C 58 24 56 27 47 27 L 0 27" />
+                <path d="M 61 17 C 62.5 13.5 64 10.5 67 7" />
               </g>
             </svg>
             <button type="button" className="level-tab-btn">HSK4</button>
