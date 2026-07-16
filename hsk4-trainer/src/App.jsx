@@ -1047,7 +1047,13 @@ const STYLES = `
     --challenge-border: #8a6bb0; --challenge-text: #6b4a95; --challenge-bg: #ede4f5;
   }
   .app { min-height: 100vh; background: var(--bg-app); color: var(--text-primary); font-family: 'Space Mono', monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; transition: background 0.2s, color 0.2s; }
-  .theme-toggle-row { width: 100%; max-width: 420px; display: flex; justify-content: flex-end; margin-bottom: 12px; }
+  .top-bar { width: 100%; max-width: 420px; display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px; }
+  .level-tabs { display: flex; }
+  .level-tab { padding: 7px 13px; border: 1px solid var(--border-default); border-bottom: none; border-radius: 8px 8px 0 0; background: var(--bg-card); color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; cursor: pointer; transition: all 0.15s; }
+  .level-tab + .level-tab { margin-left: -1px; }
+  .level-tab.active { background: var(--bg-app); color: var(--accent-gold); border-color: var(--accent-gold); position: relative; z-index: 1; }
+  .level-tab:disabled { cursor: not-allowed; opacity: 0.45; }
+  .level-tab:disabled:hover { border-color: var(--border-default); color: var(--text-muted); }
   .theme-toggle { width: 56px; height: 30px; border-radius: 15px; background: var(--bg-card); border: 1px solid var(--border-default); position: relative; cursor: pointer; padding: 0; transition: background 0.2s, border-color 0.2s; }
   .theme-toggle-knob { position: absolute; top: 2px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 13px; transition: transform 0.2s ease; }
   .theme-toggle.is-light .theme-toggle-knob { transform: translateX(26px); }
@@ -1359,7 +1365,11 @@ export default function App() {
     <>
       <style>{STYLES}</style>
       <div className="app">
-        <div className="theme-toggle-row">
+        <div className="top-bar">
+          <div className="level-tabs">
+            <button type="button" className="level-tab active">HSK4</button>
+            <button type="button" className="level-tab" disabled title="Coming soon">HSK3</button>
+          </div>
           <button
             type="button"
             className={`theme-toggle${theme === "light" ? " is-light" : ""}`}
