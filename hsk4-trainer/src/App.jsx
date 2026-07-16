@@ -1468,8 +1468,9 @@ export default function App() {
             {challengeFilter && editingThreshold && (
               <input
                 className="threshold-input"
-                type="number"
-                min="1"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 autoFocus
                 defaultValue={challengeThreshold}
                 onBlur={e => { setChallengeThreshold(Math.max(1, Number(e.target.value) || 4)); setEditingThreshold(false); }}
