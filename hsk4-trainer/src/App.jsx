@@ -1030,90 +1030,119 @@ let GLOBAL_MASTERY = {};
 const STYLES = `
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Space+Mono:wght@400;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  .app { min-height: 100vh; background: #0e0e12; color: #e8e0d0; font-family: 'Space Mono', monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; }
-  .title { font-family: 'Noto Serif SC', serif; font-size: 2.2rem; font-weight: 700; color: #e8c87a; letter-spacing: 0.08em; margin-bottom: 4px; text-align: center; }
-  .subtitle { font-size: 0.7rem; color: #7a7060; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; }
+  :root[data-theme="dark"] {
+    --bg-app: #0e0e12; --bg-card: #14141c; --bg-card-hover: #1e1e28; --bg-mode-btn: #1a1a22;
+    --border-default: #2e2e3a; --muted-strong: #5a5a6a;
+    --text-primary: #e8e0d0; --text-secondary: #c8c0b0; --text-tertiary: #a8a090; --text-muted: #7a7060; --text-faint: #5a5060;
+    --accent-gold: #e8c87a; --accent-gold-dim: #9a8a60; --accent-gold-hover: #c8a840;
+    --success: #5ab87a; --success-bg: #1a2e1e; --error: #c85a5a; --error-bg: #2e1a1a; --active-bg: #1e1a0a;
+    --challenge-border: #7a5aa8; --challenge-text: #a88ad8; --challenge-bg: #1e1a2e;
+  }
+  :root[data-theme="light"] {
+    --bg-app: #f7f2e7; --bg-card: #fffdf8; --bg-card-hover: #f0e8d4; --bg-mode-btn: #fffdf8;
+    --border-default: #ddd0af; --muted-strong: #b6a67c;
+    --text-primary: #2a2419; --text-secondary: #423a29; --text-tertiary: #5c5138; --text-muted: #8a7a56; --text-faint: #b6a67c;
+    --accent-gold: #9c6f13; --accent-gold-dim: #a68d54; --accent-gold-hover: #7d5910;
+    --success: #25823f; --success-bg: #e2f3e4; --error: #b23a3a; --error-bg: #fbe8e6; --active-bg: #f2e6bd;
+    --challenge-border: #8a6bb0; --challenge-text: #6b4a95; --challenge-bg: #ede4f5;
+  }
+  .app { min-height: 100vh; background: var(--bg-app); color: var(--text-primary); font-family: 'Space Mono', monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; transition: background 0.2s, color 0.2s; }
+  .theme-toggle-row { width: 100%; max-width: 420px; display: flex; justify-content: flex-end; margin-bottom: 12px; }
+  .theme-toggle { width: 56px; height: 30px; border-radius: 15px; background: var(--bg-card); border: 1px solid var(--border-default); position: relative; cursor: pointer; padding: 0; transition: background 0.2s, border-color 0.2s; }
+  .theme-toggle-knob { position: absolute; top: 2px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 13px; transition: transform 0.2s ease; }
+  .theme-toggle.is-light .theme-toggle-knob { transform: translateX(26px); }
+  .title { font-family: 'Noto Serif SC', serif; font-size: 2.2rem; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.08em; margin-bottom: 4px; text-align: center; }
+  .subtitle { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; }
   .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 420px; }
-  .mode-btn { background: #1a1a22; border: 1px solid #2e2e3a; border-radius: 10px; padding: 18px 14px; cursor: pointer; text-align: left; transition: all 0.15s; color: #e8e0d0; }
-  .mode-btn:hover { border-color: #e8c87a; background: #1e1e28; }
-  .mode-label { font-size: 0.95rem; font-weight: 700; color: #e8c87a; margin-bottom: 5px; }
-  .mode-desc { font-size: 0.68rem; color: #7a7060; }
-  .card { background: #14141c; border: 1px solid #2e2e3a; border-radius: 16px; padding: 32px 24px 24px; width: 100%; max-width: 480px; }
-  .progress-bar { height: 3px; background: #2e2e3a; border-radius: 2px; margin-bottom: 24px; overflow: hidden; }
-  .progress-fill { height: 100%; background: #e8c87a; border-radius: 2px; transition: width 0.3s; }
-  .score-line { font-size: 0.65rem; color: #7a7060; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; }
-  .prompt-label { font-size: 0.6rem; color: #7a7060; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px; }
-  .prompt-zh { font-family: 'Noto Serif SC', serif; font-size: 3rem; color: #e8e0d0; margin-bottom: 6px; line-height: 1.2; }
-  .prompt-en { font-family: 'Space Mono', monospace; font-size: 1.1rem; color: #c8c0b0; margin-bottom: 6px; line-height: 1.5; }
-  .pinyin-hint { font-size: 2.8rem; color: #9a8a60; margin-bottom: 20px; min-height: 60px; cursor: pointer; transition: color 0.2s; letter-spacing: 0.08em; font-family: 'Space Mono', monospace; }
-  .pinyin-tap-hint { font-size: 0.62rem; color: #5a5060; letter-spacing: 0.15em; margin-bottom: 20px; cursor: pointer; min-height: 56px; display: flex; align-items: center; }
-  .pinyin-hint:hover { color: #c8a840; }
-  .pinyin-hint.revealed { color: #e8c87a; font-weight: 700; }
+  .mode-btn { background: var(--bg-mode-btn); border: 1px solid var(--border-default); border-radius: 10px; padding: 18px 14px; cursor: pointer; text-align: left; transition: all 0.15s; color: var(--text-primary); }
+  .mode-btn:hover { border-color: var(--accent-gold); background: var(--bg-card-hover); }
+  .mode-label { font-size: 0.95rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 5px; }
+  .mode-desc { font-size: 0.68rem; color: var(--text-muted); }
+  .card { background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 16px; padding: 32px 24px 24px; width: 100%; max-width: 480px; }
+  .progress-bar { height: 3px; background: var(--border-default); border-radius: 2px; margin-bottom: 24px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent-gold); border-radius: 2px; transition: width 0.3s; }
+  .score-line { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; }
+  .prompt-label { font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px; }
+  .prompt-zh { font-family: 'Noto Serif SC', serif; font-size: 3rem; color: var(--text-primary); margin-bottom: 6px; line-height: 1.2; }
+  .prompt-en { font-family: 'Space Mono', monospace; font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 6px; line-height: 1.5; }
+  .pinyin-hint { font-size: 2.8rem; color: var(--accent-gold-dim); margin-bottom: 20px; min-height: 60px; cursor: pointer; transition: color 0.2s; letter-spacing: 0.08em; font-family: 'Space Mono', monospace; }
+  .pinyin-tap-hint { font-size: 0.62rem; color: var(--text-faint); letter-spacing: 0.15em; margin-bottom: 20px; cursor: pointer; min-height: 56px; display: flex; align-items: center; }
+  .pinyin-hint:hover { color: var(--accent-gold-hover); }
+  .pinyin-hint.revealed { color: var(--accent-gold); font-weight: 700; }
   .spacer { margin-bottom: 20px; }
-  .input-field { width: 100%; background: #0e0e12; border: 1px solid #2e2e3a; border-radius: 8px; padding: 14px 16px; color: #e8e0d0; font-family: 'Space Mono', monospace; font-size: 1rem; outline: none; margin-bottom: 14px; transition: border-color 0.15s; }
-  .input-field:focus { border-color: #e8c87a; }
-  .char-hint { font-size: 0.65rem; color: #5a5a6a; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
-  .char-hint span { color: #e8c87a; font-size: 0.8rem; }
-  .input-correct { border-color: #5ab87a !important; }
-  .input-wrong { border-color: #c85a5a !important; }
-  .submit-btn { width: 100%; background: #e8c87a; color: #0e0e12; border: none; border-radius: 8px; padding: 13px; font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 700; cursor: pointer; letter-spacing: 0.1em; transition: opacity 0.15s; }
+  .input-field { width: 100%; background: var(--bg-app); border: 1px solid var(--border-default); border-radius: 8px; padding: 14px 16px; color: var(--text-primary); font-family: 'Space Mono', monospace; font-size: 1rem; outline: none; margin-bottom: 14px; transition: border-color 0.15s; }
+  .input-field:focus { border-color: var(--accent-gold); }
+  .char-hint { font-size: 0.65rem; color: var(--muted-strong); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
+  .char-hint span { color: var(--accent-gold); font-size: 0.8rem; }
+  .input-correct { border-color: var(--success) !important; }
+  .input-wrong { border-color: var(--error) !important; }
+  .submit-btn { width: 100%; background: var(--accent-gold); color: var(--bg-app); border: none; border-radius: 8px; padding: 13px; font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 700; cursor: pointer; letter-spacing: 0.1em; transition: opacity 0.15s; }
   .submit-btn:hover { opacity: 0.88; }
   .submit-btn:disabled { opacity: 0.35; cursor: default; }
   .result-box { border-radius: 8px; padding: 14px 16px; margin-bottom: 14px; font-size: 0.85rem; }
-  .result-correct { background: #1a2e1e; border: 1px solid #5ab87a; color: #5ab87a; }
-  .result-wrong { background: #2e1a1a; border: 1px solid #c85a5a; color: #c85a5a; }
-  .result-ans { color: #e8e0d0; font-size: 1.05rem; margin-top: 4px; }
+  .result-correct { background: var(--success-bg); border: 1px solid var(--success); color: var(--success); }
+  .result-wrong { background: var(--error-bg); border: 1px solid var(--error); color: var(--error); }
+  .result-ans { color: var(--text-primary); font-size: 1.05rem; margin-top: 4px; }
   .mc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-  .mc-btn { background: #0e0e12; border: 1px solid #2e2e3a; border-radius: 8px; padding: 18px 10px; color: #e8e0d0; font-family: 'Noto Serif SC', serif; font-size: 1.9rem; cursor: pointer; text-align: center; transition: all 0.15s; line-height: 1.2; }
-  .mc-btn:hover:not(:disabled) { border-color: #e8c87a; }
-  .mc-chosen-correct { border-color: #5ab87a !important; background: #1a2e1e !important; color: #5ab87a !important; }
-  .mc-chosen-wrong { border-color: #c85a5a !important; background: #2e1a1a !important; color: #c85a5a !important; }
-  .mc-reveal { border-color: #5ab87a !important; color: #5ab87a !important; }
+  .mc-btn { background: var(--bg-app); border: 1px solid var(--border-default); border-radius: 8px; padding: 18px 10px; color: var(--text-primary); font-family: 'Noto Serif SC', serif; font-size: 1.9rem; cursor: pointer; text-align: center; transition: all 0.15s; line-height: 1.2; }
+  .mc-btn:hover:not(:disabled) { border-color: var(--accent-gold); }
+  .mc-chosen-correct { border-color: var(--success) !important; background: var(--success-bg) !important; color: var(--success) !important; }
+  .mc-chosen-wrong { border-color: var(--error) !important; background: var(--error-bg) !important; color: var(--error) !important; }
+  .mc-reveal { border-color: var(--success) !important; color: var(--success) !important; }
   .mc-pinyin { font-family: 'Space Mono', monospace; font-size: 1.05rem; color: inherit; opacity: 0.8; margin-top: 5px; }
-  .next-btn { width: 100%; background: transparent; border: 1px solid #e8c87a; border-radius: 8px; padding: 12px; color: #e8c87a; font-family: 'Space Mono', monospace; font-size: 0.85rem; cursor: pointer; letter-spacing: 0.1em; transition: all 0.15s; }
-  .next-btn:hover { background: #e8c87a; color: #0e0e12; }
+  .next-btn { width: 100%; background: transparent; border: 1px solid var(--accent-gold); border-radius: 8px; padding: 12px; color: var(--accent-gold); font-family: 'Space Mono', monospace; font-size: 0.85rem; cursor: pointer; letter-spacing: 0.1em; transition: all 0.15s; }
+  .next-btn:hover { background: var(--accent-gold); color: var(--bg-app); }
   .done-card { text-align: center; max-width: 420px; width: 100%; }
-  .done-pct { font-family: 'Noto Serif SC', serif; font-size: 5rem; color: #e8c87a; line-height: 1; margin-bottom: 8px; }
-  .done-label { font-size: 0.7rem; color: #7a7060; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 8px; }
-  .done-sub { font-size: 0.85rem; color: #a8a090; margin-bottom: 16px; }
+  .done-pct { font-family: 'Noto Serif SC', serif; font-size: 5rem; color: var(--accent-gold); line-height: 1; margin-bottom: 8px; }
+  .done-label { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 8px; }
+  .done-sub { font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 16px; }
   .done-btns { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
-  .btn-gold { background: #e8c87a; color: #0e0e12; border: none; border-radius: 8px; padding: 12px 18px; font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 700; cursor: pointer; }
-  .btn-outline { background: transparent; border: 1px solid #e8c87a; color: #e8c87a; border-radius: 8px; padding: 12px 18px; font-family: 'Space Mono', monospace; font-size: 0.78rem; cursor: pointer; }
-  .btn-red { background: transparent; border: 1px solid #c85a5a; color: #c85a5a; border-radius: 8px; padding: 12px 18px; font-family: 'Space Mono', monospace; font-size: 0.78rem; cursor: pointer; }
-  .back-btn { background: transparent; border: 1px solid #2e2e3a; border-radius: 8px; padding: 8px 16px; color: #7a7060; font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; margin-bottom: 20px; letter-spacing: 0.1em; transition: all 0.15s; }
-  .back-btn:hover { color: #e8e0d0; border-color: #5a5a6a; }
+  .btn-gold { background: var(--accent-gold); color: var(--bg-app); border: none; border-radius: 8px; padding: 12px 18px; font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 700; cursor: pointer; }
+  .btn-outline { background: transparent; border: 1px solid var(--accent-gold); color: var(--accent-gold); border-radius: 8px; padding: 12px 18px; font-family: 'Space Mono', monospace; font-size: 0.78rem; cursor: pointer; }
+  .btn-red { background: transparent; border: 1px solid var(--error); color: var(--error); border-radius: 8px; padding: 12px 18px; font-family: 'Space Mono', monospace; font-size: 0.78rem; cursor: pointer; }
+  .back-btn { background: transparent; border: 1px solid var(--border-default); border-radius: 8px; padding: 8px 16px; color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; margin-bottom: 20px; letter-spacing: 0.1em; transition: all 0.15s; }
+  .back-btn:hover { color: var(--text-primary); border-color: var(--muted-strong); }
   .mastery-box { width: 100%; max-width: 420px; margin-bottom: 24px; }
   .mastery-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
-  .mastery-label { font-size: 0.6rem; color: #7a7060; letter-spacing: 0.18em; text-transform: uppercase; }
-  .mastery-count { font-size: 0.75rem; color: #e8c87a; font-weight: 700; }
-  .mastery-bar-bg { height: 6px; background: #2e2e3a; border-radius: 3px; overflow: hidden; }
-  .mastery-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #5ab87a, #e8c87a); transition: width 0.5s ease; }
-  .mastery-sub { font-size: 0.6rem; color: #5a5a6a; margin-top: 5px; }
-  .done-mastery { margin: 14px 0 20px; padding: 14px 18px; background: #0e0e12; border: 1px solid #2e2e3a; border-radius: 10px; text-align: left; }
+  .mastery-label { font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.18em; text-transform: uppercase; }
+  .mastery-count { font-size: 0.75rem; color: var(--accent-gold); font-weight: 700; }
+  .mastery-bar-bg { height: 6px; background: var(--border-default); border-radius: 3px; overflow: hidden; }
+  .mastery-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--success), var(--accent-gold)); transition: width 0.5s ease; }
+  .mastery-sub { font-size: 0.6rem; color: var(--muted-strong); margin-top: 5px; }
+  .done-mastery { margin: 14px 0 20px; padding: 14px 18px; background: var(--bg-app); border: 1px solid var(--border-default); border-radius: 10px; text-align: left; }
   .done-mastery-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-  .done-mastery-label { font-size: 0.62rem; color: #7a7060; letter-spacing: 0.15em; text-transform: uppercase; }
-  .done-mastery-val { font-size: 0.82rem; color: #e8c87a; font-weight: 700; }
-  .done-mastery-bar-bg { height: 4px; background: #2e2e3a; border-radius: 2px; overflow: hidden; }
-  .done-mastery-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, #5ab87a, #e8c87a); transition: width 0.5s; }
-  .bad-badge { display: inline-block; background: #2e1a1a; border: 1px solid #c85a5a; color: #c85a5a; border-radius: 6px; font-size: 0.6rem; padding: 2px 7px; margin-left: 8px; vertical-align: middle; letter-spacing: 0.1em; }
-  .range-box { width: 100%; max-width: 420px; margin-bottom: 20px; background: #14141c; border: 1px solid #2e2e3a; border-radius: 12px; padding: 16px; }
+  .done-mastery-label { font-size: 0.62rem; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; }
+  .done-mastery-val { font-size: 0.82rem; color: var(--accent-gold); font-weight: 700; }
+  .done-mastery-bar-bg { height: 4px; background: var(--border-default); border-radius: 2px; overflow: hidden; }
+  .done-mastery-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--success), var(--accent-gold)); transition: width 0.5s; }
+  .bad-badge { display: inline-block; background: var(--error-bg); border: 1px solid var(--error); color: var(--error); border-radius: 6px; font-size: 0.6rem; padding: 2px 7px; margin-left: 8px; vertical-align: middle; letter-spacing: 0.1em; }
+  .range-box { width: 100%; max-width: 420px; margin-bottom: 20px; background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; padding: 16px; }
   .range-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
   .range-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-  .range-group { display: flex; flex-direction: column; gap: 5px; }
-  .range-label { font-size: 0.58rem; color: #7a7060; letter-spacing: 0.15em; text-transform: uppercase; }
-  .range-select { background: #0e0e12; border: 1px solid #2e2e3a; border-radius: 6px; color: #e8e0d0; font-family: 'Space Mono', monospace; font-size: 0.72rem; padding: 8px 10px; outline: none; cursor: pointer; }
-  .range-select:focus { border-color: #e8c87a; }
-  .range-presets { display: flex; flex-wrap: wrap; gap: 6px; }
-  .preset-btn { background: #0e0e12; border: 1px solid #2e2e3a; border-radius: 6px; color: #7a7060; font-family: 'Space Mono', monospace; font-size: 0.62rem; padding: 5px 9px; cursor: pointer; transition: all 0.15s; }
-  .preset-btn:hover { border-color: #e8c87a; color: #e8e0d0; }
-  .preset-active { border-color: #e8c87a !important; color: #e8c87a !important; background: #1e1a0a !important; }
-  .challenge-btn { border-color: #7a5aa8 !important; color: #a88ad8 !important; }
-  .challenge-btn:hover { background: #1e1a2e !important; }
-  .challenge-btn.preset-active { background: #1e1a2e !important; }
-  .challenge-outline { border-color: #a88ad8 !important; color: #a88ad8 !important; }
-  .threshold-input { width: 28px; background: #0e0e12; border: 1px solid #a88ad8; border-radius: 4px; color: #a88ad8; font-family: 'Space Mono', monospace; font-size: 0.62rem; padding: 3px 4px; outline: none; }
-  .threshold-chip { background: #1e1a2e; border: 1px solid #7a5aa8; border-radius: 4px; color: #a88ad8; font-family: 'Space Mono', monospace; font-size: 0.62rem; padding: 4px 7px; cursor: pointer; }
-  .threshold-chip:hover { border-color: #a88ad8; }
+  .range-group { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .range-label { font-size: 0.58rem; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; }
+  .range-select { width: 100%; background: var(--bg-app); border: 1px solid var(--border-default); border-radius: 6px; color: var(--text-primary); font-family: 'Space Mono', monospace; font-size: 0.72rem; padding: 8px 10px; outline: none; cursor: pointer; }
+  .range-select:focus { border-color: var(--accent-gold); }
+  .range-main { display: flex; align-items: flex-start; gap: 8px; }
+  .range-left { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .range-presets { display: flex; flex-wrap: wrap; gap: 6px; align-content: flex-start; }
+  .subrange-wrap { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+  .subrange-col { display: flex; flex-direction: column; align-items: center; border: 1px solid var(--border-default); border-radius: 6px 0 0 6px; padding: 3px 8px; margin-right: -16px; }
+  .subrange-num { font-size: 0.52rem; color: var(--text-muted); font-family: 'Space Mono', monospace; line-height: 1; padding: 1px 0; }
+  .subrange-dot { width: 16px; height: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; background: none; border: none; padding: 0; touch-action: none; user-select: none; -webkit-user-select: none; }
+  .subrange-dot::before { content: ''; width: 3px; height: 3px; border-radius: 50%; background: var(--text-faint); transition: all 0.15s; }
+  .subrange-dot:hover::before { background: var(--accent-gold); width: 5px; height: 5px; }
+  .subrange-dot-active::before { background: var(--accent-gold); width: 5px; height: 5px; }
+  .preset-btn { background: var(--bg-app); border: 1px solid var(--border-default); border-radius: 6px; color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 0.62rem; padding: 5px 9px; cursor: pointer; transition: all 0.15s; }
+  .preset-btn:hover { border-color: var(--accent-gold); color: var(--text-primary); }
+  .preset-active { border-color: var(--accent-gold) !important; color: var(--accent-gold) !important; background: var(--active-bg) !important; }
+  .challenge-btn { border-color: var(--challenge-border) !important; color: var(--challenge-text) !important; }
+  .challenge-btn:hover { background: var(--challenge-bg) !important; }
+  .challenge-btn.preset-active { background: var(--challenge-bg) !important; }
+  .challenge-outline { border-color: var(--challenge-text) !important; color: var(--challenge-text) !important; }
+  .threshold-input { width: 28px; background: var(--bg-app); border: 1px solid var(--challenge-text); border-radius: 4px; color: var(--challenge-text); font-family: 'Space Mono', monospace; font-size: 0.62rem; padding: 3px 4px; outline: none; }
+  .threshold-chip { background: var(--challenge-bg); border: 1px solid var(--challenge-border); border-radius: 4px; color: var(--challenge-text); font-family: 'Space Mono', monospace; font-size: 0.62rem; padding: 4px 7px; cursor: pointer; }
+  .threshold-chip:hover { border-color: var(--challenge-text); }
   .challenge-row { display: flex; align-items: center; gap: 6px; margin-top: 10px; }
 `;
 function shuffle(arr) {
@@ -1161,6 +1190,15 @@ export default function App() {
   const [challengeThreshold, setChallengeThreshold] = useState(4);
   const [challengeFilter, setChallengeFilter] = useState(false);
   const [editingThreshold, setEditingThreshold] = useState(false);
+  const [dragAnchorIdx, setDragAnchorIdx] = useState(null);
+  const dragBaseRef = useRef(0);
+  const [theme, setTheme] = useState(() => {
+    try { return localStorage.getItem("hsk4_theme") || "dark"; } catch { return "dark"; }
+  });
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("hsk4_theme", theme); } catch {}
+  }, [theme]);
   useEffect(() => {
     loadStorage().then(({ badList, mastery }) => {
       GLOBAL_BAD_LIST = badList;
@@ -1212,6 +1250,33 @@ export default function App() {
   const masteredCount = Object.values(mastery).filter(m => m.lastCorrect === true).length;
   const seenCount = Object.keys(mastery).length;
   const totalWords = HSK4_WORDS.length;
+  const SUBRANGE_MARKS = [0, 20, 40, 60, 80, 100];
+  function applyBlockRange(base, startIdx, endIdx) {
+    const lo = Math.min(startIdx, endIdx);
+    const hi = Math.max(startIdx, endIdx);
+    setRangeStart(Math.min(base + SUBRANGE_MARKS[lo], totalWords - 1));
+    setRangeEnd(Math.min(base + SUBRANGE_MARKS[hi + 1] - 1, totalWords - 1));
+  }
+  useEffect(() => {
+    if (dragAnchorIdx === null) return;
+    function handleMove(e) {
+      const point = e.touches ? e.touches[0] : e;
+      const el = document.elementFromPoint(point.clientX, point.clientY);
+      const dotEl = el && el.closest && el.closest("[data-dot-index]");
+      if (dotEl) {
+        applyBlockRange(dragBaseRef.current, dragAnchorIdx, Number(dotEl.getAttribute("data-dot-index")));
+      }
+    }
+    function handleUp() { setDragAnchorIdx(null); }
+    window.addEventListener("pointermove", handleMove);
+    window.addEventListener("pointerup", handleUp);
+    window.addEventListener("pointercancel", handleUp);
+    return () => {
+      window.removeEventListener("pointermove", handleMove);
+      window.removeEventListener("pointerup", handleUp);
+      window.removeEventListener("pointercancel", handleUp);
+    };
+  }, [dragAnchorIdx]);
   function buildMC(p, i) {
     const wrong = getWrongChoices(p[i], 3);
     setMcChoices(shuffle([p[i], ...wrong]));
@@ -1286,7 +1351,7 @@ export default function App() {
       <style>{STYLES}</style>
       <div className="app">
         <div className="title">HSK 4</div>
-        <div style={{ color: "#5a5a6a", fontSize: "0.7rem", letterSpacing: "0.2em", marginTop: 16 }}>LOADING PROGRESS…</div>
+        <div style={{ color: "var(--muted-strong)", fontSize: "0.7rem", letterSpacing: "0.2em", marginTop: 16 }}>LOADING PROGRESS…</div>
       </div>
     </>
   );
@@ -1294,39 +1359,100 @@ export default function App() {
     <>
       <style>{STYLES}</style>
       <div className="app">
+        <div className="theme-toggle-row">
+          <button
+            type="button"
+            className={`theme-toggle${theme === "light" ? " is-light" : ""}`}
+            onClick={() => setTheme(t => t === "dark" ? "light" : "dark")}
+            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+          >
+            <span className="theme-toggle-knob">{theme === "dark" ? "🌙" : "☀️"}</span>
+          </button>
+        </div>
         <div className="title">HSK 4</div>
         <div className="subtitle">New HSK 3.0 Level 4 · {totalWords} words</div>
         <div className="range-box">
           <div className="range-header">
             <span className="mastery-label">Word Range</span>
-            <span className="mastery-count">#{rangeStart + 1} – #{rangeEnd + 1} <span style={{color:"#5a5a6a"}}>({rangeEnd - rangeStart + 1} words)</span></span>
+            <span className="mastery-count">#{rangeStart + 1} – #{rangeEnd + 1} <span style={{color:"var(--muted-strong)"}}>({rangeEnd - rangeStart + 1} words)</span></span>
           </div>
-          <div className="range-row">
-            <div className="range-group">
-              <label className="range-label">From</label>
-              <select className="range-select" value={rangeStart} onChange={e => setRangeStart(Math.min(Number(e.target.value), rangeEnd))}>
-                {Array.from({length: totalWords}, (_, i) => (
-                  <option key={i} value={i}>#{i + 1} {HSK4_WORDS[i].hanzi}</option>
-                ))}
-              </select>
-            </div>
-            <div className="range-group">
-              <label className="range-label">To</label>
-              <select className="range-select" value={rangeEnd} onChange={e => setRangeEnd(Math.max(Number(e.target.value), rangeStart))}>
-                {Array.from({length: totalWords}, (_, i) => (
-                  <option key={i} value={i}>#{i + 1} {HSK4_WORDS[i].hanzi}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="range-presets">
-            {[[0,99],[100,199],[200,299],[300,399],[400,499],[500,599],[600,699],[700,799],[800,899],[900,totalWords-1],[0,totalWords-1]].map(([s,e]) => (
-              <button key={s+"-"+e} className={`preset-btn${rangeStart===s&&rangeEnd===Math.min(e,totalWords-1)?" preset-active":""}`}
-                onClick={() => { setRangeStart(s); setRangeEnd(Math.min(e, totalWords-1)); }}>
-                {s===0&&e===totalWords-1?"All":`${s+1}–${Math.min(e,totalWords-1)+1}`}
-              </button>
-            ))}
-          </div>
+          {(() => {
+            const hundredBase = Math.floor(rangeStart / 100) * 100;
+            const isFullRange = rangeStart === 0 && rangeEnd === totalWords - 1;
+            const relStart = rangeStart - hundredBase;
+            const relEnd = rangeEnd - hundredBase;
+            return (
+              <div className="range-main">
+                <div className="range-left">
+                  <div className="range-row">
+                    <div className="range-group">
+                      <label className="range-label">From</label>
+                      <select className="range-select" value={rangeStart} onChange={e => setRangeStart(Math.min(Number(e.target.value), rangeEnd))}>
+                        {Array.from({length: totalWords}, (_, i) => (
+                          <option key={i} value={i}>#{i + 1} {HSK4_WORDS[i].hanzi}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="range-group">
+                      <label className="range-label">To</label>
+                      <select className="range-select" value={rangeEnd} onChange={e => setRangeEnd(Math.max(Number(e.target.value), rangeStart))}>
+                        {Array.from({length: totalWords}, (_, i) => (
+                          <option key={i} value={i}>#{i + 1} {HSK4_WORDS[i].hanzi}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="range-presets">
+                    {[[0,99],[100,199],[200,299],[300,399],[400,499],[500,599],[600,699],[700,799],[800,899],[900,totalWords-1],[0,totalWords-1]].map(([s,e]) => {
+                      const cappedE = Math.min(e, totalWords - 1);
+                      const isAllPreset = s === 0 && cappedE === totalWords - 1;
+                      const isActive = isAllPreset
+                        ? isFullRange
+                        : (!isFullRange && hundredBase === s && rangeStart >= s && rangeEnd <= cappedE);
+                      return (
+                        <button key={s+"-"+e} className={`preset-btn${isActive ? " preset-active" : ""}`}
+                          onClick={() => { setRangeStart(s); setRangeEnd(cappedE); }}>
+                          {isAllPreset ? "All" : `${s+1}–${cappedE+1}`}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="subrange-wrap">
+                  <span className="subrange-num" style={{visibility: "hidden"}} aria-hidden="true">0</span>
+                  <span className="subrange-dot" style={{visibility: "hidden"}} aria-hidden="true" />
+                  <div className="subrange-col">
+                  {SUBRANGE_MARKS.flatMap((m, i, marks) => {
+                    const els = [<span key={`n${m}`} className="subrange-num">{m}</span>];
+                    if (i < marks.length - 1) {
+                      const subStart = marks[i];
+                      const subEnd = marks[i + 1] - 1;
+                      const dotActive = relEnd < 100 && relStart >= 0 && subStart >= relStart && subEnd <= relEnd;
+                      els.push(
+                        <button
+                          key={`d${m}`}
+                          type="button"
+                          data-dot-index={i}
+                          className={`subrange-dot${dotActive ? " subrange-dot-active" : ""}`}
+                          aria-label={`Select ${subStart + 1}-${subEnd + 1} of current block`}
+                          onPointerDown={(e) => {
+                            if (e.currentTarget.releasePointerCapture) {
+                              try { e.currentTarget.releasePointerCapture(e.pointerId); } catch {}
+                            }
+                            dragBaseRef.current = hundredBase;
+                            setDragAnchorIdx(i);
+                            applyBlockRange(hundredBase, i, i);
+                          }}
+                        />
+                      );
+                    }
+                    return els;
+                  })}
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
           <div className="challenge-row">
             <button
               className={`preset-btn challenge-btn${challengeFilter ? " preset-active" : ""}`}
@@ -1437,7 +1563,7 @@ export default function App() {
           <div className="progress-bar"><div className="progress-fill" style={{ width: `${progress}%` }} /></div>
           <div className="score-line">
             {index + 1} / {poolSize} · {score.correct} correct
-            {isBadListSession && <span style={{ color: "#c85a5a", marginLeft: 8 }}>BAD LIST</span>}
+            {isBadListSession && <span style={{ color: "var(--error)", marginLeft: 8 }}>BAD LIST</span>}
             {isOnBadList && !isBadListSession && <span className="bad-badge">bad list</span>}
           </div>
           <div className="prompt-label">{mode === "mc" ? "English" : isChinesePrompt ? "Chinese" : "English"}</div>
