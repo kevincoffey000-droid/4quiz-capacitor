@@ -1371,7 +1371,7 @@ export default function App() {
               <g className="lt-stroke-group">
                 <path d="M 0 7 L 49 7 C 56 7 58 10 61 17" />
                 <path d="M 61 17 C 58 24 56 27 47 27 L 0 27" />
-                <path d="M 61 17 L 66 9 C 67 7.4 69 7 72 7" />
+                <path d="M 61 17 L 71.6 0" />
               </g>
             </svg>
             <button type="button" className="level-tab-btn">HSK 4</button>
