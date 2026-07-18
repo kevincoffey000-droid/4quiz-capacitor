@@ -1090,6 +1090,8 @@ const STYLES = `
   .result-wrong { background: var(--error-bg); border: 1px solid var(--error); color: var(--error); }
   .result-ans { color: var(--text-primary); font-size: 1.05rem; margin-top: 4px; }
   .mc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .show-options-btn { width: 100%; background: transparent; border: 1px dashed var(--muted-strong); border-radius: 8px; padding: 24px 16px; color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 0.75rem; cursor: pointer; margin-bottom: 14px; letter-spacing: 0.05em; text-align: center; transition: all 0.15s; }
+  .show-options-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
   .mc-btn { background: var(--bg-app); border: 1px solid var(--border-default); border-radius: 8px; padding: 18px 10px; color: var(--text-primary); font-family: 'Noto Serif SC', serif; font-size: 1.9rem; cursor: pointer; text-align: center; transition: all 0.15s; line-height: 1.2; }
   .mc-btn:hover:not(:disabled) { border-color: var(--accent-gold); }
   .mc-chosen-correct { border-color: var(--success) !important; background: var(--success-bg) !important; color: var(--success) !important; }
@@ -1187,6 +1189,7 @@ export default function App() {
   const [done, setDone] = useState(false);
   const [showPinyin, setShowPinyin] = useState(false);
   const [chosen, setChosen] = useState(null);
+  const [optionsHidden, setOptionsHidden] = useState(false);
   const [badList, setBadList] = useState(GLOBAL_BAD_LIST);
   const [mastery, setMastery] = useState(GLOBAL_MASTERY);
   const [rangeStart, setRangeStart] = useState(0);
@@ -1306,6 +1309,7 @@ export default function App() {
     setPool(p); setMode(m); setIsBadListSession(badListSession);
     setIndex(0); setScore({ correct: 0, total: 0 }); setResult(null);
     setInput(""); setDone(false); setShowPinyin(false); setChosen(null);
+    setOptionsHidden(m === "mc");
     if (m === "mc") buildMC(p, 0);
   }
   function startBadList(m) {
@@ -1318,6 +1322,7 @@ export default function App() {
     const next = index + 1;
     if (next >= total) { setDone(true); return; }
     setIndex(next); setResult(null); setInput(""); setShowPinyin(false); setChosen(null);
+    setOptionsHidden(mode === "mc");
     if (mode === "mc") buildMC(pool, next);
   }
   function checkTyped() {
@@ -1594,6 +1599,11 @@ export default function App() {
             : <div className="spacer" />
           }
           {mode === "mc" ? (
+            optionsHidden ? (
+              <button className="show-options-btn" onClick={() => setOptionsHidden(false)}>
+                Try to recall, then tap to show options
+              </button>
+            ) : (
             <div className="mc-grid">
               {mcChoices.map((ch, idx) => {
                 const isCorrect = ch.hanzi === pool[index]?.hanzi;
@@ -1611,6 +1621,7 @@ export default function App() {
                 );
               })}
             </div>
+            )
           ) : (
             <>
               <input
