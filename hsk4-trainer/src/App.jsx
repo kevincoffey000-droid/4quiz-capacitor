@@ -2455,6 +2455,10 @@ export default function App() {
             const isFullRange = rangeStart === 0 && rangeEnd === totalWords - 1;
             const relStart = rangeStart - hundredBase;
             const relEnd = rangeEnd - hundredBase;
+            const hundredBuckets = totalWords > 100
+              ? Array.from({length: Math.ceil(totalWords / 100)}, (_, i) => [i * 100, i * 100 + 99])
+              : [];
+            const rangePresets = [...hundredBuckets, [0, totalWords - 1]];
             return (
               <div className="range-main">
                 <div className="range-left">
@@ -2477,7 +2481,7 @@ export default function App() {
                     </div>
                   </div>
                   <div className="range-presets">
-                    {[[0,99],[100,199],[200,299],[300,399],[400,499],[500,599],[600,699],[700,799],[800,899],[900,totalWords-1],[0,totalWords-1]].map(([s,e]) => {
+                    {rangePresets.map(([s,e]) => {
                       const cappedE = Math.min(e, totalWords - 1);
                       const isAllPreset = s === 0 && cappedE === totalWords - 1;
                       const isActive = isAllPreset
