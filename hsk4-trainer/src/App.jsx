@@ -1501,15 +1501,32 @@ const HSK3_WORDS = [
   { hanzi: "做客", pinyin: "zuòkè", english: "to be a guest, to visit" },
   { hanzi: "作业", pinyin: "zuòyè", english: "homework, assignment" },
 ];
+const HSK1_WORDS = [];
+const HSK2_WORDS = [];
+const HSK5_WORDS = [];
+const HSK6_WORDS = [];
+const HSK7TO9_WORDS = [];
+const LEVELS = [
+  { id: 1, label: "1", words: HSK1_WORDS },
+  { id: 2, label: "2", words: HSK2_WORDS },
+  { id: 3, label: "3", words: HSK3_WORDS },
+  { id: 4, label: "4", words: HSK4_WORDS },
+  { id: 5, label: "5", words: HSK5_WORDS },
+  { id: 6, label: "6", words: HSK6_WORDS },
+  { id: "7-9", label: "7-9", words: HSK7TO9_WORDS },
+];
 const MODES = [
   { id: "en-to-zh", label: "EN → 汉字", desc: "See English, type Chinese" },
   { id: "zh-to-en", label: "汉字 → EN", desc: "See Chinese, type English" },
   { id: "zh-to-py", label: "汉字 → Pinyin", desc: "See Chinese, type pinyin" },
   { id: "mc", label: "Multiple Choice", desc: "See English, pick Chinese" },
 ];
-async function loadStorage() {
+function storageKey(levelId) {
+  return levelId === 4 ? "hsk4_progress" : `hsk${levelId}_progress`;
+}
+async function loadStorage(levelId) {
   try {
-    const raw = localStorage.getItem("hsk4_progress");
+    const raw = localStorage.getItem(storageKey(levelId));
     if (raw) {
       const data = JSON.parse(raw);
       return {
@@ -1520,9 +1537,9 @@ async function loadStorage() {
   } catch {}
   return { badList: [], mastery: {} };
 }
-async function saveStorage(badList, mastery) {
+async function saveStorage(levelId, badList, mastery) {
   try {
-    localStorage.setItem("hsk4_progress", JSON.stringify({ badList, mastery }));
+    localStorage.setItem(storageKey(levelId), JSON.stringify({ badList, mastery }));
   } catch {}
 }
 let GLOBAL_BAD_LIST = [];
@@ -1552,9 +1569,15 @@ const STYLES = `
   .theme-toggle-knob { position: absolute; top: 2px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 13px; transition: transform 0.2s ease; }
   .theme-toggle.is-light .theme-toggle-knob { transform: translateX(26px); }
   .title { font-family: 'Noto Serif SC', serif; font-size: 2.2rem; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.08em; margin-bottom: 4px; text-align: center; }
+  .title-row { position: relative; }
+  .level-number-btn { background: none; border: none; padding: 0; margin: 0; font: inherit; font-weight: inherit; color: inherit; letter-spacing: inherit; cursor: pointer; border-bottom: 2px dotted var(--accent-gold); line-height: 1; }
+  .level-menu-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; background: transparent; }
+  .level-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 11; margin-top: 8px; background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 10px; padding: 6px; display: flex; flex-direction: column; gap: 2px; min-width: 120px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+  .level-menu-item { background: none; border: none; border-radius: 6px; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; color: var(--text-muted); cursor: pointer; text-align: left; transition: all 0.15s; }
+  .level-menu-item:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+  .level-menu-item.active { color: var(--accent-gold); font-weight: 700; }
   .subtitle { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; }
-  .subtitle-caret-btn { background: none; border: none; padding: 0 2px; margin: 0; font-family: inherit; cursor: pointer; vertical-align: middle; }
-  .subtitle-caret { display: inline-block; font-size: 0.8em; color: var(--text-muted); opacity: 0.75; transform: translateY(-3px); }
+  .empty-level { width: 100%; max-width: 420px; text-align: center; color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.05em; padding: 40px 16px; border: 1px dashed var(--muted-strong); border-radius: 12px; }
   .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 420px; }
   .mode-btn { background: var(--bg-mode-btn); border: 1px solid var(--border-default); border-radius: 10px; padding: 18px 14px; cursor: pointer; text-align: left; transition: all 0.15s; color: var(--text-primary); }
   .mode-btn:hover { border-color: var(--accent-gold); background: var(--bg-card-hover); }
@@ -1655,8 +1678,8 @@ function shuffle(arr) {
   }
   return a;
 }
-function getWrongChoices(correct, n = 3) {
-  const others = HSK4_WORDS.filter(w => w.hanzi !== correct.hanzi);
+function getWrongChoices(correct, allWords, n = 3) {
+  const others = allWords.filter(w => w.hanzi !== correct.hanzi);
   return shuffle(others).slice(0, n);
 }
 function normalizePinyin(s) {
@@ -1685,6 +1708,8 @@ export default function App() {
   const [chosen, setChosen] = useState(null);
   const [badList, setBadList] = useState(GLOBAL_BAD_LIST);
   const [mastery, setMastery] = useState(GLOBAL_MASTERY);
+  const [levelId, setLevelId] = useState(4);
+  const [levelMenuOpen, setLevelMenuOpen] = useState(false);
   const [rangeStart, setRangeStart] = useState(0);
   const [rangeEnd, setRangeEnd] = useState(HSK4_WORDS.length - 1);
   const [roundSize, setRoundSize] = useState(20);
@@ -1701,15 +1726,21 @@ export default function App() {
     document.documentElement.setAttribute("data-theme", theme);
     try { localStorage.setItem("hsk4_theme", theme); } catch {}
   }, [theme]);
+  const currentLevel = LEVELS.find(l => l.id === levelId) || LEVELS[3];
+  const WORDS = currentLevel.words;
   useEffect(() => {
-    loadStorage().then(({ badList, mastery }) => {
+    setMode(null); setPool([]); setIndex(0); setDone(false); setResult(null);
+    setChallengeFilter(false); setEditingThreshold(false);
+    setRangeStart(0); setRangeEnd(Math.max(WORDS.length - 1, 0));
+    setLoading(true);
+    loadStorage(levelId).then(({ badList, mastery }) => {
       GLOBAL_BAD_LIST = badList;
       GLOBAL_MASTERY = mastery;
       setBadList([...badList]);
       setMastery({ ...mastery });
       setLoading(false);
     });
-  }, []);
+  }, [levelId]);
   const nextBtnRef = useRef(null);
   useEffect(() => {
     if (result && nextBtnRef.current) {
@@ -1719,19 +1750,19 @@ export default function App() {
   function removeFromBadList(word) {
     GLOBAL_BAD_LIST = GLOBAL_BAD_LIST.filter(w => w.hanzi !== word.hanzi);
     setBadList([...GLOBAL_BAD_LIST]);
-    saveStorage(GLOBAL_BAD_LIST, GLOBAL_MASTERY);
+    saveStorage(levelId, GLOBAL_BAD_LIST, GLOBAL_MASTERY);
   }
   function addToBadList(word) {
     if (!GLOBAL_BAD_LIST.find(w => w.hanzi === word.hanzi)) {
       GLOBAL_BAD_LIST = [...GLOBAL_BAD_LIST, word];
       setBadList([...GLOBAL_BAD_LIST]);
-      saveStorage(GLOBAL_BAD_LIST, GLOBAL_MASTERY);
+      saveStorage(levelId, GLOBAL_BAD_LIST, GLOBAL_MASTERY);
     }
   }
   function clearBadList() {
     GLOBAL_BAD_LIST = [];
     setBadList([]);
-    saveStorage([], GLOBAL_MASTERY);
+    saveStorage(levelId, [], GLOBAL_MASTERY);
   }
   function recordAnswer(word, correct) {
     const prev = GLOBAL_MASTERY[word.hanzi] || { seen: 0, lastCorrect: false, timesOnBadList: 0, correctStreak: 0, lastPracticedAt: 0 };
@@ -1746,12 +1777,12 @@ export default function App() {
       }
     };
     setMastery({ ...GLOBAL_MASTERY });
-    saveStorage(GLOBAL_BAD_LIST, GLOBAL_MASTERY);
+    saveStorage(levelId, GLOBAL_BAD_LIST, GLOBAL_MASTERY);
     if (correct) { removeFromBadList(word); } else { addToBadList(word); }
   }
   const masteredCount = Object.values(mastery).filter(m => m.lastCorrect === true).length;
   const seenCount = Object.keys(mastery).length;
-  const totalWords = HSK4_WORDS.length;
+  const totalWords = WORDS.length;
   const SUBRANGE_MARKS = [0, 20, 40, 60, 80, 100];
   function applyBlockRange(base, startIdx, endIdx) {
     const lo = Math.min(startIdx, endIdx);
@@ -1780,11 +1811,11 @@ export default function App() {
     };
   }, [dragAnchorIdx]);
   function buildMC(p, i) {
-    const wrong = getWrongChoices(p[i], 3);
+    const wrong = getWrongChoices(p[i], WORDS, 3);
     setMcChoices(shuffle([p[i], ...wrong]));
   }
   function getChallengingWords(fromList) {
-    const base = fromList || HSK4_WORDS;
+    const base = fromList || WORDS;
     return base
       .filter(w => {
         const m = GLOBAL_MASTERY[w.hanzi];
@@ -1793,7 +1824,7 @@ export default function App() {
       .sort((a, b) => (GLOBAL_MASTERY[a.hanzi].lastPracticedAt || 0) - (GLOBAL_MASTERY[b.hanzi].lastPracticedAt || 0));
   }
   function startQuiz(m, existingPool, badListSession = false) {
-    const rangeWords = HSK4_WORDS.slice(rangeStart, rangeEnd + 1);
+    const rangeWords = WORDS.slice(rangeStart, rangeEnd + 1);
     const eligible = challengeFilter
       ? getChallengingWords(rangeWords).slice(0, roundSize)
       : rangeWords;
@@ -1852,7 +1883,7 @@ export default function App() {
     <>
       <style>{STYLES}</style>
       <div className="app">
-        <div className="title">HSK 4</div>
+        <div className="title">HSK {currentLevel.label}</div>
         <div style={{ color: "var(--muted-strong)", fontSize: "0.7rem", letterSpacing: "0.2em", marginTop: 16 }}>LOADING PROGRESS…</div>
       </div>
     </>
@@ -1871,14 +1902,41 @@ export default function App() {
             <span className="theme-toggle-knob">{theme === "dark" ? "🌙" : "☀️"}</span>
           </button>
         </div>
-        <div className="title">HSK 4</div>
-        <div className="subtitle">
-          New HSK 3.0
-          <button type="button" className="subtitle-caret-btn" aria-label="Change HSK standard version"><span className="subtitle-caret">⌄</span></button>
-          {" "}Level 4
-          <button type="button" className="subtitle-caret-btn" aria-label="Change HSK level"><span className="subtitle-caret">⌄</span></button>
-          {" "}· {totalWords} words
+        <div className="title-row">
+          <div className="title">
+            HSK{" "}
+            <button
+              type="button"
+              className="level-number-btn"
+              onClick={() => setLevelMenuOpen(v => !v)}
+              aria-label="Choose HSK level"
+            >
+              {currentLevel.label}
+            </button>
+          </div>
+          {levelMenuOpen && (
+            <>
+              <div className="level-menu-overlay" onClick={() => setLevelMenuOpen(false)} />
+              <div className="level-menu">
+                {LEVELS.map(l => (
+                  <button
+                    key={l.id}
+                    type="button"
+                    className={`level-menu-item${l.id === levelId ? " active" : ""}`}
+                    onClick={() => { setLevelId(l.id); setLevelMenuOpen(false); }}
+                  >
+                    HSK {l.label}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
         </div>
+        <div className="subtitle">New HSK 3.0 Level {currentLevel.label} · {totalWords} words</div>
+        {totalWords === 0 ? (
+          <div className="empty-level">No words yet for HSK {currentLevel.label} — check back soon!</div>
+        ) : (
+        <>
         <div className="range-box">
           <div className="range-header">
             <span className="mastery-label">Word Range</span>
@@ -1897,7 +1955,7 @@ export default function App() {
                       <label className="range-label">From</label>
                       <select className="range-select" value={rangeStart} onChange={e => setRangeStart(Math.min(Number(e.target.value), rangeEnd))}>
                         {Array.from({length: totalWords}, (_, i) => (
-                          <option key={i} value={i}>#{i + 1} {HSK4_WORDS[i].hanzi}</option>
+                          <option key={i} value={i}>#{i + 1} {WORDS[i].hanzi}</option>
                         ))}
                       </select>
                     </div>
@@ -1905,7 +1963,7 @@ export default function App() {
                       <label className="range-label">To</label>
                       <select className="range-select" value={rangeEnd} onChange={e => setRangeEnd(Math.max(Number(e.target.value), rangeStart))}>
                         {Array.from({length: totalWords}, (_, i) => (
-                          <option key={i} value={i}>#{i + 1} {HSK4_WORDS[i].hanzi}</option>
+                          <option key={i} value={i}>#{i + 1} {WORDS[i].hanzi}</option>
                         ))}
                       </select>
                     </div>
@@ -1966,7 +2024,7 @@ export default function App() {
               className={`preset-btn challenge-btn${challengeFilter ? " preset-active" : ""}`}
               onClick={() => { setChallengeFilter(v => !v); setEditingThreshold(false); }}
             >
-              Hard ({getChallengingWords(HSK4_WORDS.slice(rangeStart, rangeEnd + 1)).length})
+              Hard ({getChallengingWords(WORDS.slice(rangeStart, rangeEnd + 1)).length})
             </button>
             {challengeFilter && !editingThreshold && (
               <button className="threshold-chip" onClick={() => setEditingThreshold(true)}>
@@ -2025,6 +2083,8 @@ export default function App() {
             <button className="btn-outline" style={{ fontSize: "0.7rem", padding: "10px 12px" }} onClick={clearBadList}>Clear</button>
           </div>
         )}
+        </>
+        )}
       </div>
     </>
   );
@@ -2050,9 +2110,9 @@ export default function App() {
             <button className="btn-gold" onClick={replay}>Replay</button>
             <button className="btn-gold" onClick={() => startQuiz(mode)}>New {roundSize}</button>
             {currentBadList.length > 0 && <button className="btn-red" onClick={() => startBadList(mode)}>Bad List ({currentBadList.length})</button>}
-            {getChallengingWords(HSK4_WORDS.slice(rangeStart, rangeEnd + 1)).length > 0 && (
+            {getChallengingWords(WORDS.slice(rangeStart, rangeEnd + 1)).length > 0 && (
               <button className="btn-outline challenge-outline" onClick={() => { setChallengeFilter(true); startQuiz(mode); }}>
-                Hard ({getChallengingWords(HSK4_WORDS.slice(rangeStart, rangeEnd + 1)).length})
+                Hard ({getChallengingWords(WORDS.slice(rangeStart, rangeEnd + 1)).length})
               </button>
             )}
             <button className="btn-outline" onClick={() => setMode(null)}>← Home</button>
