@@ -1569,8 +1569,8 @@ const STYLES = `
   .theme-toggle-knob { position: absolute; top: 2px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 13px; transition: transform 0.2s ease; }
   .theme-toggle.is-light .theme-toggle-knob { transform: translateX(26px); }
   .title { font-family: 'Noto Serif SC', serif; font-size: 2.2rem; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.08em; margin-bottom: 4px; text-align: center; }
-  .title-row { position: relative; }
-  .level-number-btn { background: none; border: none; padding: 0; margin: 0; font: inherit; font-weight: inherit; color: inherit; letter-spacing: inherit; cursor: pointer; border-bottom: 2px dotted var(--accent-gold); line-height: 1; }
+  .subtitle-row { position: relative; }
+  .level-number-btn { background: none; border: none; padding: 0; margin: 0; font: inherit; font-weight: inherit; color: var(--accent-gold); letter-spacing: inherit; cursor: pointer; border-bottom: 1px dotted var(--accent-gold); line-height: 1; }
   .level-menu-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; background: transparent; }
   .level-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 11; margin-top: 8px; background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 10px; padding: 6px; display: flex; flex-direction: column; gap: 2px; min-width: 120px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
   .level-menu-item { background: none; border: none; border-radius: 6px; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; color: var(--text-muted); cursor: pointer; text-align: left; transition: all 0.15s; }
@@ -1902,9 +1902,10 @@ export default function App() {
             <span className="theme-toggle-knob">{theme === "dark" ? "🌙" : "☀️"}</span>
           </button>
         </div>
-        <div className="title-row">
-          <div className="title">
-            HSK{" "}
+        <div className="title">HSK {currentLevel.label}</div>
+        <div className="subtitle-row">
+          <div className="subtitle">
+            New HSK 3.0 Level{" "}
             <button
               type="button"
               className="level-number-btn"
@@ -1913,6 +1914,7 @@ export default function App() {
             >
               {currentLevel.label}
             </button>
+            {" "}· {totalWords} words
           </div>
           {levelMenuOpen && (
             <>
@@ -1932,7 +1934,6 @@ export default function App() {
             </>
           )}
         </div>
-        <div className="subtitle">New HSK 3.0 Level {currentLevel.label} · {totalWords} words</div>
         {totalWords === 0 ? (
           <div className="empty-level">No words yet for HSK {currentLevel.label} — check back soon!</div>
         ) : (
