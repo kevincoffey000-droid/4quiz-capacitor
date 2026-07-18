@@ -1852,7 +1852,8 @@ const HSK2_WORDS = [
   { hanzi: "个子", pinyin: "gèzi", english: "height, stature" },
   { hanzi: "跟", pinyin: "gēn", english: "with; to follow" },
   { hanzi: "公交车", pinyin: "gōngjiāochē", english: "public bus" },
-  { hanzi: "过", pinyin: "guò", english: "to pass, to cross, to go over; to spend (time); to celebrate (a birthday)" },
+  { hanzi: "过", pinyin: "guò", english: "(verb) to pass, to cross, to go over; to spend (time); to celebrate (a birthday)", id: "过|verb" },
+  { hanzi: "过", pinyin: "guo", english: "(particle) indicates a past experience, similar to \"have done\"", id: "过|particle" },
   { hanzi: "过来", pinyin: "guòlái", english: "to come over" },
   { hanzi: "过年", pinyin: "guònián", english: "to celebrate the Chinese New Year" },
   { hanzi: "过去", pinyin: "guòqù", english: "to pass, to go over, to go past" },
@@ -1861,7 +1862,8 @@ const HSK2_WORDS = [
   { hanzi: "红茶", pinyin: "hóngchá", english: "black tea" },
   { hanzi: "红色", pinyin: "hóngsè", english: "red (colour)" },
   { hanzi: "后面", pinyin: "hòumiàn", english: "at the back, behind, later" },
-  { hanzi: "花", pinyin: "huā", english: "to spend; flower, blossom" },
+  { hanzi: "花", pinyin: "huā", english: "(verb) to spend", id: "花|verb" },
+  { hanzi: "花", pinyin: "huā", english: "(noun/adj.) flower, blossom; patterned, colorful", id: "花|noun" },
   { hanzi: "画", pinyin: "huà", english: "to draw, to paint (pictures)" },
   { hanzi: "坏", pinyin: "huài", english: "bad" },
   { hanzi: "回来", pinyin: "huílái", english: "to return, to come back" },
@@ -2184,6 +2186,9 @@ function getWrongChoices(correct, allWords, n = 3) {
   const others = allWords.filter(w => w.hanzi !== correct.hanzi);
   return shuffle(others).slice(0, n);
 }
+function wordKey(w) {
+  return w.id || w.hanzi;
+}
 function normalizePinyin(s) {
   return s.trim().toLowerCase()
     .replace(/[āáǎà]/g, "a").replace(/[ēéěè]/g, "e")
@@ -2250,12 +2255,12 @@ export default function App() {
     }
   }, [result]);
   function removeFromBadList(word) {
-    GLOBAL_BAD_LIST = GLOBAL_BAD_LIST.filter(w => w.hanzi !== word.hanzi);
+    GLOBAL_BAD_LIST = GLOBAL_BAD_LIST.filter(w => wordKey(w) !== wordKey(word));
     setBadList([...GLOBAL_BAD_LIST]);
     saveStorage(levelId, GLOBAL_BAD_LIST, GLOBAL_MASTERY);
   }
   function addToBadList(word) {
-    if (!GLOBAL_BAD_LIST.find(w => w.hanzi === word.hanzi)) {
+    if (!GLOBAL_BAD_LIST.find(w => wordKey(w) === wordKey(word))) {
       GLOBAL_BAD_LIST = [...GLOBAL_BAD_LIST, word];
       setBadList([...GLOBAL_BAD_LIST]);
       saveStorage(levelId, GLOBAL_BAD_LIST, GLOBAL_MASTERY);
@@ -2267,10 +2272,10 @@ export default function App() {
     saveStorage(levelId, [], GLOBAL_MASTERY);
   }
   function recordAnswer(word, correct) {
-    const prev = GLOBAL_MASTERY[word.hanzi] || { seen: 0, lastCorrect: false, timesOnBadList: 0, correctStreak: 0, lastPracticedAt: 0 };
+    const prev = GLOBAL_MASTERY[wordKey(word)] || { seen: 0, lastCorrect: false, timesOnBadList: 0, correctStreak: 0, lastPracticedAt: 0 };
     GLOBAL_MASTERY = {
       ...GLOBAL_MASTERY,
-      [word.hanzi]: {
+      [wordKey(word)]: {
         seen: prev.seen + 1,
         lastCorrect: correct,
         timesOnBadList: correct ? (prev.timesOnBadList || 0) : (prev.timesOnBadList || 0) + 1,
@@ -2320,10 +2325,10 @@ export default function App() {
     const base = fromList || WORDS;
     return base
       .filter(w => {
-        const m = GLOBAL_MASTERY[w.hanzi];
+        const m = GLOBAL_MASTERY[wordKey(w)];
         return m && (m.timesOnBadList || 0) >= challengeThreshold && (m.correctStreak || 0) < 3;
       })
-      .sort((a, b) => (GLOBAL_MASTERY[a.hanzi].lastPracticedAt || 0) - (GLOBAL_MASTERY[b.hanzi].lastPracticedAt || 0));
+      .sort((a, b) => (GLOBAL_MASTERY[wordKey(a)].lastPracticedAt || 0) - (GLOBAL_MASTERY[wordKey(b)].lastPracticedAt || 0));
   }
   function startQuiz(m, existingPool, badListSession = false) {
     const rangeWords = WORDS.slice(rangeStart, rangeEnd + 1);
@@ -2625,7 +2630,7 @@ export default function App() {
     </>
   );
   const isChinesePrompt = mode !== "en-to-zh";
-  const isOnBadList = cur && currentBadList.find(w => w.hanzi === cur.hanzi);
+  const isOnBadList = cur && currentBadList.find(w => wordKey(w) === wordKey(cur));
   return (
     <>
       <style>{STYLES}</style>
@@ -2665,7 +2670,7 @@ export default function App() {
                   else if (idx === chosen) cls = "mc-btn mc-chosen-wrong";
                 }
                 return (
-                  <button key={ch.hanzi} className={cls} disabled={result !== null} onClick={() => checkMC(idx)}>
+                  <button key={wordKey(ch)} className={cls} disabled={result !== null} onClick={() => checkMC(idx)}>
                     {ch.hanzi}
                     {result !== null && <div className="mc-pinyin">{ch.pinyin}</div>}
                   </button>
