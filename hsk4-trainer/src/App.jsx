@@ -2011,6 +2011,7 @@ const HSK5_WORDS = [
   { hanzi: "哎", pinyin: "āi", english: "hey" },
   { hanzi: "哎呀", pinyin: "āiyā", english: "interjection of wonder, shock or admiration" },
   { hanzi: "唉", pinyin: "ài", english: "oh; ah; well" },
+  { hanzi: "啊", pinyin: "à", english: "alas, oh" },
   { hanzi: "爱护", pinyin: "àihù", english: "care; cherish; take good care of" },
   { hanzi: "安", pinyin: "ān", english: "peace, tranquility, safety" },
   { hanzi: "安全带", pinyin: "ānquándài", english: "seat belt; safety belt" },
