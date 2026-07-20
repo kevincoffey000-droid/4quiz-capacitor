@@ -11169,6 +11169,8 @@ const STYLES = `
   .range-main { display: flex; align-items: flex-start; gap: 8px; }
   .range-left { flex: 1; min-width: 0; display: flex; flex-direction: column; }
   .range-presets { display: flex; flex-wrap: wrap; gap: 6px; align-content: flex-start; }
+  .range-presets-thousands { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed var(--border-default); }
+  .preset-btn-thousand { font-weight: 600; }
   .subrange-wrap { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
   .subrange-col { display: flex; flex-direction: column; align-items: center; border: 1px solid var(--border-default); border-radius: 6px 0 0 6px; padding: 3px 8px; margin-right: -16px; }
   .subrange-num { font-size: 0.52rem; color: var(--text-muted); font-family: 'Space Mono', monospace; line-height: 1; padding: 1px 0; }
@@ -11469,8 +11471,15 @@ export default function App() {
             const isFullRange = rangeStart === 0 && rangeEnd === totalWords - 1;
             const relStart = rangeStart - hundredBase;
             const relEnd = rangeEnd - hundredBase;
-            const hundredBuckets = totalWords > 100
-              ? Array.from({length: Math.ceil(totalWords / 100)}, (_, i) => [i * 100, i * 100 + 99])
+            const thousandTierCount = Math.ceil(totalWords / 1000);
+            const thousandBase = Math.floor(rangeStart / 1000) * 1000;
+            const thousandTiers = thousandTierCount > 1
+              ? Array.from({length: thousandTierCount}, (_, k) => k * 1000)
+              : [];
+            const tierStart = thousandBase;
+            const tierEnd = Math.min(thousandBase + 999, totalWords - 1);
+            const hundredBuckets = (tierEnd - tierStart + 1) > 100
+              ? Array.from({length: Math.ceil((tierEnd - tierStart + 1) / 100)}, (_, i) => [tierStart + i * 100, tierStart + i * 100 + 99])
               : [];
             const rangePresets = [...hundredBuckets, [0, totalWords - 1]];
             return (
@@ -11494,6 +11503,20 @@ export default function App() {
                       </select>
                     </div>
                   </div>
+                  {thousandTiers.length > 0 && (
+                    <div className="range-presets range-presets-thousands">
+                      {thousandTiers.map(t => {
+                        const tCappedEnd = Math.min(t + 999, totalWords - 1);
+                        const isActive = !isFullRange && thousandBase === t;
+                        return (
+                          <button key={"t" + t} className={`preset-btn preset-btn-thousand${isActive ? " preset-active" : ""}`}
+                            onClick={() => { setRangeStart(t); setRangeEnd(tCappedEnd); }}>
+                            {t}+
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
                   <div className="range-presets">
                     {rangePresets.map(([s,e]) => {
                       const cappedE = Math.min(e, totalWords - 1);
