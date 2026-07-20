@@ -11082,7 +11082,9 @@ const STYLES = `
     --challenge-border: #8a6bb0; --challenge-text: #6b4a95; --challenge-bg: #ede4f5;
   }
   .app { min-height: 100vh; background: var(--bg-app); color: var(--text-primary); font-family: 'Space Mono', monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; transition: background 0.2s, color 0.2s; }
-  .top-bar { width: 100%; max-width: 420px; display: flex; justify-content: flex-end; margin-bottom: 12px; }
+  .top-bar { width: 100%; max-width: 420px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .icon-btn { width: 30px; height: 30px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border-default); color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; padding: 0; transition: border-color 0.2s, color 0.2s; }
+  .icon-btn:hover { border-color: var(--accent-gold); color: var(--text-primary); }
   .theme-toggle { width: 56px; height: 30px; border-radius: 15px; background: var(--bg-card); border: 1px solid var(--border-default); position: relative; cursor: pointer; padding: 0; transition: background 0.2s, border-color 0.2s; }
   .theme-toggle-knob { position: absolute; top: 2px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 13px; transition: transform 0.2s ease; }
   .theme-toggle.is-light .theme-toggle-knob { transform: translateX(26px); }
@@ -11416,6 +11418,13 @@ export default function App() {
       <style>{STYLES}</style>
       <div className="app">
         <div className="top-bar">
+          <button
+            type="button"
+            className="icon-btn"
+            aria-label="Settings"
+          >
+            ⚙️
+          </button>
           <button
             type="button"
             className={`theme-toggle${theme === "light" ? " is-light" : ""}`}
