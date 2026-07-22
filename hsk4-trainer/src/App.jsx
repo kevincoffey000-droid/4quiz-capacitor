@@ -11039,6 +11039,9 @@ const MODES = [
   { id: "zh-to-py", label: "汉字 → Pinyin", desc: "See Chinese, type pinyin" },
   { id: "mc", label: "Multiple Choice", desc: "See English, pick Chinese" },
 ];
+const ATTRIBUTION_TEXT = `Attribution
+
+This app uses vocabulary data from the complete-hsk-vocabulary project by Yanis Zafirópulos (Dr.Kameleon), which is licensed under the MIT License. The full license text is provided below for compliance.`;
 const LICENSE_TEXT = `MIT License
 
 Copyright (c) 2026 Yanis Zafirópulos (aka Dr.Kameleon)
@@ -11487,6 +11490,7 @@ export default function App() {
                 <span className="modal-title">LICENCES</span>
                 <button type="button" className="modal-close" onClick={() => { setLicenseOpen(false); setSettingsOpen(false); }} aria-label="Close">×</button>
               </div>
+              <div className="license-text" style={{ marginBottom: 16 }}>{ATTRIBUTION_TEXT}</div>
               <div className="license-text">{LICENSE_TEXT}</div>
             </div>
           </div>
