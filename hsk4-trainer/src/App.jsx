@@ -11039,6 +11039,27 @@ const MODES = [
   { id: "zh-to-py", label: "汉字 → Pinyin", desc: "See Chinese, type pinyin" },
   { id: "mc", label: "Multiple Choice", desc: "See English, pick Chinese" },
 ];
+const LICENSE_TEXT = `MIT License
+
+Copyright (c) 2026 Yanis Zafirópulos (aka Dr.Kameleon)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.`;
 function storageKey(levelId) {
   return levelId === 4 ? "hsk4_progress" : `hsk${levelId}_progress`;
 }
@@ -11085,6 +11106,15 @@ const STYLES = `
   .top-bar { width: 100%; max-width: 420px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
   .icon-btn { width: 30px; height: 30px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border-default); color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; padding: 0; transition: border-color 0.2s, color 0.2s; }
   .icon-btn:hover { border-color: var(--accent-gold); color: var(--text-primary); }
+  .modal-overlay { position: fixed; inset: 0; z-index: 30; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; padding: 20px; }
+  .modal-card { background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; padding: 20px; max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+  .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .modal-title { font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 0.12em; color: var(--accent-gold); font-weight: 700; }
+  .modal-close { background: none; border: none; color: var(--text-muted); font-size: 1.2rem; line-height: 1; cursor: pointer; padding: 4px 8px; }
+  .modal-close:hover { color: var(--text-primary); }
+  .settings-item { width: 100%; background: var(--bg-app); border: 1px solid var(--border-default); border-radius: 8px; padding: 12px 14px; font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em; color: var(--text-primary); cursor: pointer; text-align: left; transition: all 0.15s; }
+  .settings-item:hover { border-color: var(--accent-gold); }
+  .license-text { font-family: 'Space Mono', monospace; font-size: 0.6rem; line-height: 1.6; color: var(--text-muted); white-space: pre-wrap; }
   .theme-toggle { width: 56px; height: 30px; border-radius: 15px; background: var(--bg-card); border: 1px solid var(--border-default); position: relative; cursor: pointer; padding: 0; transition: background 0.2s, border-color 0.2s; }
   .theme-toggle-knob { position: absolute; top: 2px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 13px; transition: transform 0.2s ease; }
   .theme-toggle.is-light .theme-toggle-knob { transform: translateX(26px); }
@@ -11235,6 +11265,8 @@ export default function App() {
   const [mastery, setMastery] = useState(GLOBAL_MASTERY);
   const [levelId, setLevelId] = useState(4);
   const [levelMenuOpen, setLevelMenuOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [licenseOpen, setLicenseOpen] = useState(false);
   const [rangeStart, setRangeStart] = useState(0);
   const [rangeEnd, setRangeEnd] = useState(HSK4_WORDS.length - 1);
   const [roundSize, setRoundSize] = useState(20);
@@ -11421,6 +11453,7 @@ export default function App() {
           <button
             type="button"
             className="icon-btn"
+            onClick={() => setSettingsOpen(true)}
             aria-label="Settings"
           >
             ⚙️
@@ -11434,6 +11467,30 @@ export default function App() {
             <span className="theme-toggle-knob">{theme === "dark" ? "🌙" : "☀️"}</span>
           </button>
         </div>
+        {settingsOpen && !licenseOpen && (
+          <div className="modal-overlay" onClick={() => setSettingsOpen(false)}>
+            <div className="modal-card" onClick={e => e.stopPropagation()}>
+              <div className="modal-header">
+                <span className="modal-title">SETTINGS</span>
+                <button type="button" className="modal-close" onClick={() => setSettingsOpen(false)} aria-label="Close settings">×</button>
+              </div>
+              <button type="button" className="settings-item" onClick={() => setLicenseOpen(true)}>
+                Licences
+              </button>
+            </div>
+          </div>
+        )}
+        {settingsOpen && licenseOpen && (
+          <div className="modal-overlay" onClick={() => { setLicenseOpen(false); setSettingsOpen(false); }}>
+            <div className="modal-card" onClick={e => e.stopPropagation()}>
+              <div className="modal-header">
+                <span className="modal-title">LICENCES</span>
+                <button type="button" className="modal-close" onClick={() => { setLicenseOpen(false); setSettingsOpen(false); }} aria-label="Close">×</button>
+              </div>
+              <div className="license-text">{LICENSE_TEXT}</div>
+            </div>
+          </div>
+        )}
         <div className="title">HSK {currentLevel.label}</div>
         <div className="subtitle-row">
           <div className="subtitle">
