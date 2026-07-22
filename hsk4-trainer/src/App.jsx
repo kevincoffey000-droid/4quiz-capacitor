@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 const HSK4_WORDS = [
   { hanzi: "啊", pinyin: "ā", english: "interjection of surprise; Ah!; Oh!" },
   { hanzi: "爱情", pinyin: "àiqíng", english: "romance; love (romantic)" },
@@ -11106,7 +11106,8 @@ const STYLES = `
     --challenge-border: #8a6bb0; --challenge-text: #6b4a95; --challenge-bg: #ede4f5;
   }
   .app { min-height: 100vh; background: var(--bg-app); color: var(--text-primary); font-family: 'Space Mono', monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; transition: background 0.2s, color 0.2s; }
-  .top-bar { width: 100%; max-width: 420px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .top-bar { width: 100%; max-width: 420px; display: flex; justify-content: flex-end; align-items: center; margin-bottom: 12px; }
+  .top-bar-stack { display: flex; flex-direction: column; align-items: center; gap: 8px; }
   .icon-btn { width: 30px; height: 30px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border-default); color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; padding: 0; transition: border-color 0.2s, color 0.2s; }
   .icon-btn:hover { border-color: var(--accent-gold); color: var(--text-primary); }
   .modal-overlay { position: fixed; inset: 0; z-index: 30; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; padding: 20px; }
@@ -11224,6 +11225,7 @@ const STYLES = `
   .threshold-chip { background: var(--challenge-bg); border: 1px solid var(--challenge-border); border-radius: 4px; color: var(--challenge-text); font-family: 'Space Mono', monospace; font-size: 0.62rem; padding: 4px 7px; cursor: pointer; }
   .threshold-chip:hover { border-color: var(--challenge-text); }
   .challenge-row { display: flex; align-items: center; gap: 6px; margin-top: 10px; }
+  .shuffle-btn { display: flex; align-items: center; justify-content: center; padding: 6px 8px; }
 `;
 function shuffle(arr) {
   const a = [...arr];
@@ -11277,6 +11279,7 @@ export default function App() {
   const [challengeThreshold, setChallengeThreshold] = useState(4);
   const [challengeFilter, setChallengeFilter] = useState(false);
   const [editingThreshold, setEditingThreshold] = useState(false);
+  const [distributeOrder, setDistributeOrder] = useState(false);
   const [dragAnchorIdx, setDragAnchorIdx] = useState(null);
   const dragBaseRef = useRef(0);
   const [theme, setTheme] = useState(() => {
@@ -11288,9 +11291,15 @@ export default function App() {
   }, [theme]);
   const currentLevel = LEVELS.find(l => l.id === levelId) || LEVELS[3];
   const WORDS = currentLevel.words;
+  const orderedWords = useMemo(() => {
+    if (!distributeOrder) return WORDS;
+    const groups = Array.from({ length: 10 }, () => []);
+    WORDS.forEach((w, i) => { groups[(i + 1) % 10].push(w); });
+    return [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].flatMap(d => groups[d]);
+  }, [WORDS, distributeOrder]);
   useEffect(() => {
     setMode(null); setPool([]); setIndex(0); setDone(false); setResult(null);
-    setChallengeFilter(false); setEditingThreshold(false);
+    setChallengeFilter(false); setEditingThreshold(false); setDistributeOrder(false);
     setRangeStart(0); setRangeEnd(Math.max(WORDS.length - 1, 0));
     setLoading(true);
     loadStorage(levelId).then(({ badList, mastery }) => {
@@ -11375,7 +11384,7 @@ export default function App() {
     setMcChoices(shuffle([p[i], ...wrong]));
   }
   function getChallengingWords(fromList) {
-    const base = fromList || WORDS;
+    const base = fromList || orderedWords;
     return base
       .filter(w => {
         const m = GLOBAL_MASTERY[wordKey(w)];
@@ -11384,7 +11393,7 @@ export default function App() {
       .sort((a, b) => (GLOBAL_MASTERY[wordKey(a)].lastPracticedAt || 0) - (GLOBAL_MASTERY[wordKey(b)].lastPracticedAt || 0));
   }
   function startQuiz(m, existingPool, badListSession = false) {
-    const rangeWords = WORDS.slice(rangeStart, rangeEnd + 1);
+    const rangeWords = orderedWords.slice(rangeStart, rangeEnd + 1);
     const eligible = challengeFilter
       ? getChallengingWords(rangeWords).slice(0, roundSize)
       : rangeWords;
@@ -11453,22 +11462,24 @@ export default function App() {
       <style>{STYLES}</style>
       <div className="app">
         <div className="top-bar">
-          <button
-            type="button"
-            className="icon-btn"
-            onClick={() => setSettingsOpen(true)}
-            aria-label="Settings"
-          >
-            ⚙️
-          </button>
-          <button
-            type="button"
-            className={`theme-toggle${theme === "light" ? " is-light" : ""}`}
-            onClick={() => setTheme(t => t === "dark" ? "light" : "dark")}
-            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-          >
-            <span className="theme-toggle-knob">{theme === "dark" ? "🌙" : "☀️"}</span>
-          </button>
+          <div className="top-bar-stack">
+            <button
+              type="button"
+              className={`theme-toggle${theme === "light" ? " is-light" : ""}`}
+              onClick={() => setTheme(t => t === "dark" ? "light" : "dark")}
+              aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+            >
+              <span className="theme-toggle-knob">{theme === "dark" ? "🌙" : "☀️"}</span>
+            </button>
+            <button
+              type="button"
+              className="icon-btn"
+              onClick={() => setSettingsOpen(true)}
+              aria-label="Settings"
+            >
+              ⚙️
+            </button>
+          </div>
         </div>
         {settingsOpen && !licenseOpen && (
           <div className="modal-overlay" onClick={() => setSettingsOpen(false)}>
@@ -11560,7 +11571,7 @@ export default function App() {
                       <label className="range-label">From</label>
                       <select className="range-select" value={rangeStart} onChange={e => setRangeStart(Math.min(Number(e.target.value), rangeEnd))}>
                         {Array.from({length: totalWords}, (_, i) => (
-                          <option key={i} value={i}>#{i + 1} {WORDS[i].hanzi}</option>
+                          <option key={i} value={i}>#{i + 1} {orderedWords[i].hanzi}</option>
                         ))}
                       </select>
                     </div>
@@ -11568,7 +11579,7 @@ export default function App() {
                       <label className="range-label">To</label>
                       <select className="range-select" value={rangeEnd} onChange={e => setRangeEnd(Math.max(Number(e.target.value), rangeStart))}>
                         {Array.from({length: totalWords}, (_, i) => (
-                          <option key={i} value={i}>#{i + 1} {WORDS[i].hanzi}</option>
+                          <option key={i} value={i}>#{i + 1} {orderedWords[i].hanzi}</option>
                         ))}
                       </select>
                     </div>
@@ -11643,7 +11654,22 @@ export default function App() {
               className={`preset-btn challenge-btn${challengeFilter ? " preset-active" : ""}`}
               onClick={() => { setChallengeFilter(v => !v); setEditingThreshold(false); }}
             >
-              Hard ({getChallengingWords(WORDS.slice(rangeStart, rangeEnd + 1)).length})
+              Hard ({getChallengingWords(orderedWords.slice(rangeStart, rangeEnd + 1)).length})
+            </button>
+            <button
+              type="button"
+              className={`preset-btn shuffle-btn${distributeOrder ? " preset-active" : ""}`}
+              onClick={() => setDistributeOrder(v => !v)}
+              aria-label="Distribute word order across the list"
+              title="Distribute order: spreads ranges across the whole list instead of strict alphabetical order"
+            >
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="16 3 21 3 21 8" />
+                <line x1="4" y1="20" x2="21" y2="3" />
+                <polyline points="21 16 21 21 16 21" />
+                <line x1="15" y1="15" x2="21" y2="21" />
+                <line x1="4" y1="4" x2="9" y2="9" />
+              </svg>
             </button>
             {challengeFilter && !editingThreshold && (
               <button className="threshold-chip" onClick={() => setEditingThreshold(true)}>
@@ -11729,9 +11755,9 @@ export default function App() {
             <button className="btn-gold" onClick={replay}>Replay</button>
             <button className="btn-gold" onClick={() => startQuiz(mode)}>New {roundSize}</button>
             {currentBadList.length > 0 && <button className="btn-red" onClick={() => startBadList(mode)}>Bad List ({currentBadList.length})</button>}
-            {getChallengingWords(WORDS.slice(rangeStart, rangeEnd + 1)).length > 0 && (
+            {getChallengingWords(orderedWords.slice(rangeStart, rangeEnd + 1)).length > 0 && (
               <button className="btn-outline challenge-outline" onClick={() => { setChallengeFilter(true); startQuiz(mode); }}>
-                Hard ({getChallengingWords(WORDS.slice(rangeStart, rangeEnd + 1)).length})
+                Hard ({getChallengingWords(orderedWords.slice(rangeStart, rangeEnd + 1)).length})
               </button>
             )}
             <button className="btn-outline" onClick={() => setMode(null)}>← Home</button>
