@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from "react";
+import RussianApp from "./RussianApp.jsx";
+import { MasteryBox, RoundSizeBox, LanguageMenu } from "./shared.jsx";
 const HSK4_WORDS = [
   { hanzi: "啊", pinyin: "ā", english: "interjection of surprise; Ah!; Oh!" },
   { hanzi: "爱情", pinyin: "àiqíng", english: "romance; love (romantic)" },
@@ -11039,9 +11041,13 @@ const MODES = [
   { id: "zh-to-py", label: "汉字 → Pinyin", desc: "See Chinese, type pinyin" },
   { id: "mc", label: "Multiple Choice", desc: "See English, pick Chinese" },
 ];
-const ATTRIBUTION_TEXT = `Attribution
+const ATTRIBUTION_TEXT = `Attribution & Licenses
 
-This app uses vocabulary data from the complete-hsk-vocabulary project by Yanis Zafirópulos (Dr.Kameleon), which is licensed under the MIT License. The full license text is provided below for compliance.`;
+HSK Vocabulary Data
+
+This app includes vocabulary data from the complete-hsk-vocabulary project by Yanis Zafirópulos (Dr.Kameleon), which is licensed under the MIT License.
+
+The full MIT license text is provided below for legal compliance.`;
 const LICENSE_TEXT = `MIT License
 
 Copyright (c) 2026 Yanis Zafirópulos (aka Dr.Kameleon)
@@ -11062,7 +11068,15 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`;
+SOFTWARE.
+
+---
+
+App & Content
+
+© 2026 Q-Corp LLC. All rights reserved.
+
+All other content, design, and code in this app are the property of Q-Corp LLC and are not covered by the MIT License above.`;
 function storageKey(levelId) {
   return levelId === 4 ? "hsk4_progress" : `hsk${levelId}_progress`;
 }
@@ -11106,12 +11120,12 @@ const STYLES = `
     --challenge-border: #8a6bb0; --challenge-text: #6b4a95; --challenge-bg: #ede4f5;
   }
   .app { min-height: 100vh; background: var(--bg-app); color: var(--text-primary); font-family: 'Space Mono', monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; transition: background 0.2s, color 0.2s; }
-  .top-bar { width: 100%; max-width: 420px; display: flex; justify-content: flex-end; align-items: center; margin-bottom: 12px; }
+  .top-bar { width: 100%; max-width: 460px; display: flex; justify-content: flex-end; align-items: center; margin-bottom: 12px; }
   .top-bar-stack { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-  .icon-btn { width: 30px; height: 30px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border-default); color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; padding: 0; transition: border-color 0.2s, color 0.2s; }
-  .icon-btn:hover { border-color: var(--accent-gold); color: var(--text-primary); }
+  .icon-btn { width: 30px; height: 30px; background: none; border: none; color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; padding: 0; transition: color 0.2s; }
+  .icon-btn:hover { color: var(--accent-gold); }
   .modal-overlay { position: fixed; inset: 0; z-index: 30; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; padding: 20px; }
-  .modal-card { background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; padding: 20px; max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+  .modal-card { background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; padding: 20px; max-width: 460px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
   .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
   .modal-title { font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 0.12em; color: var(--accent-gold); font-weight: 700; }
   .modal-close { background: none; border: none; color: var(--text-muted); font-size: 1.2rem; line-height: 1; cursor: pointer; padding: 4px 8px; }
@@ -11123,16 +11137,17 @@ const STYLES = `
   .theme-toggle-knob { position: absolute; top: 2px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 13px; transition: transform 0.2s ease; }
   .theme-toggle.is-light .theme-toggle-knob { transform: translateX(26px); }
   .title { font-family: 'Noto Serif SC', serif; font-size: 2.2rem; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.08em; margin-bottom: 4px; text-align: center; }
-  .subtitle-row { position: relative; }
-  .level-number-btn { background: none; border: none; padding: 0; margin: 0; font: inherit; font-weight: inherit; color: var(--accent-gold); letter-spacing: inherit; cursor: pointer; border-bottom: 1px dotted var(--accent-gold); line-height: 1; }
+  .subtitle-row { position: relative; width: 100%; max-width: 460px; }
+  .subtitle-settings-btn { position: absolute; top: 50%; right: 0; transform: translateY(-50%); }
+  .level-number-btn { background: none; border: none; padding: 0; margin: 0; font: inherit; font-weight: inherit; color: inherit; letter-spacing: inherit; cursor: pointer; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 6px; text-decoration-color: #e8c87a99; line-height: 1; }
   .level-menu-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; background: transparent; }
   .level-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 11; margin-top: 8px; background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 10px; padding: 6px; display: flex; flex-direction: column; gap: 2px; min-width: 120px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
-  .level-menu-item { background: none; border: none; border-radius: 6px; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; color: var(--text-muted); cursor: pointer; text-align: left; transition: all 0.15s; }
+  .level-menu-item { background: none; border: none; border-radius: 6px; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; color: var(--text-muted); cursor: pointer; text-align: left; white-space: nowrap; transition: all 0.15s; }
   .level-menu-item:hover { background: var(--bg-card-hover); color: var(--text-primary); }
   .level-menu-item.active { color: var(--accent-gold); font-weight: 700; }
-  .subtitle { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; }
-  .empty-level { width: 100%; max-width: 420px; text-align: center; color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.05em; padding: 40px 16px; border: 1px dashed var(--muted-strong); border-radius: 12px; }
-  .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 420px; }
+  .subtitle { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; text-align: center; }
+  .empty-level { width: 100%; max-width: 460px; text-align: center; color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.05em; padding: 40px 16px; border: 1px dashed var(--muted-strong); border-radius: 12px; }
+  .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 460px; }
   .mode-btn { background: var(--bg-mode-btn); border: 1px solid var(--border-default); border-radius: 10px; padding: 18px 14px; cursor: pointer; text-align: left; transition: all 0.15s; color: var(--text-primary); }
   .mode-btn:hover { border-color: var(--accent-gold); background: var(--bg-card-hover); }
   .mode-label { font-size: 0.95rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 5px; }
@@ -11171,7 +11186,7 @@ const STYLES = `
   .mc-pinyin { font-family: 'Space Mono', monospace; font-size: 1.05rem; color: inherit; opacity: 0.8; margin-top: 5px; }
   .next-btn { width: 100%; background: transparent; border: 1px solid var(--accent-gold); border-radius: 8px; padding: 12px; color: var(--accent-gold); font-family: 'Space Mono', monospace; font-size: 0.85rem; cursor: pointer; letter-spacing: 0.1em; transition: all 0.15s; }
   .next-btn:hover { background: var(--accent-gold); color: var(--bg-app); }
-  .done-card { text-align: center; max-width: 420px; width: 100%; }
+  .done-card { text-align: center; max-width: 460px; width: 100%; }
   .done-pct { font-family: 'Noto Serif SC', serif; font-size: 5rem; color: var(--accent-gold); line-height: 1; margin-bottom: 8px; }
   .done-label { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 8px; }
   .done-sub { font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 16px; }
@@ -11181,7 +11196,7 @@ const STYLES = `
   .btn-red { background: transparent; border: 1px solid var(--error); color: var(--error); border-radius: 8px; padding: 12px 18px; font-family: 'Space Mono', monospace; font-size: 0.78rem; cursor: pointer; }
   .back-btn { background: transparent; border: 1px solid var(--border-default); border-radius: 8px; padding: 8px 16px; color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; margin-bottom: 20px; letter-spacing: 0.1em; transition: all 0.15s; }
   .back-btn:hover { color: var(--text-primary); border-color: var(--muted-strong); }
-  .mastery-box { width: 100%; max-width: 420px; margin-bottom: 24px; }
+  .mastery-box { width: 100%; max-width: 460px; margin-bottom: 24px; }
   .mastery-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
   .mastery-label { font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.18em; text-transform: uppercase; }
   .mastery-count { font-size: 0.75rem; color: var(--accent-gold); font-weight: 700; }
@@ -11195,7 +11210,7 @@ const STYLES = `
   .done-mastery-bar-bg { height: 4px; background: var(--border-default); border-radius: 2px; overflow: hidden; }
   .done-mastery-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--success), var(--accent-gold)); transition: width 0.5s; }
   .bad-badge { display: inline-block; background: var(--error-bg); border: 1px solid var(--error); color: var(--error); border-radius: 6px; font-size: 0.6rem; padding: 2px 7px; margin-left: 8px; vertical-align: middle; letter-spacing: 0.1em; }
-  .range-box { width: 100%; max-width: 420px; margin-bottom: 20px; background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; padding: 16px; }
+  .range-box { width: 100%; max-width: 460px; margin-bottom: 20px; background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; padding: 16px; }
   .range-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
   .range-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
   .range-group { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
@@ -11253,7 +11268,7 @@ function normalizeEn(s) {
   return s.trim().toLowerCase().replace(/[^a-z\s]/g, "").replace(/\s+/g, " ").trim();
 }
 // TOTAL is now controlled by roundSize state
-export default function App() {
+function ChineseTrainer({ theme, setTheme, onSwitchLanguage }) {
   const [mode, setMode] = useState(null);
   const [isBadListSession, setIsBadListSession] = useState(false);
   const [pool, setPool] = useState([]);
@@ -11270,6 +11285,7 @@ export default function App() {
   const [mastery, setMastery] = useState(GLOBAL_MASTERY);
   const [levelId, setLevelId] = useState(4);
   const [levelMenuOpen, setLevelMenuOpen] = useState(false);
+  const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [licenseOpen, setLicenseOpen] = useState(false);
   const [rangeStart, setRangeStart] = useState(0);
@@ -11282,13 +11298,6 @@ export default function App() {
   const [distributeOrder, setDistributeOrder] = useState(false);
   const [dragAnchorIdx, setDragAnchorIdx] = useState(null);
   const dragBaseRef = useRef(0);
-  const [theme, setTheme] = useState(() => {
-    try { return localStorage.getItem("hsk4_theme") || "dark"; } catch { return "dark"; }
-  });
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    try { localStorage.setItem("hsk4_theme", theme); } catch {}
-  }, [theme]);
   const currentLevel = LEVELS.find(l => l.id === levelId) || LEVELS[3];
   const WORDS = currentLevel.words;
   const orderedWords = useMemo(() => {
@@ -11471,14 +11480,6 @@ export default function App() {
             >
               <span className="theme-toggle-knob">{theme === "dark" ? "🌙" : "☀️"}</span>
             </button>
-            <button
-              type="button"
-              className="icon-btn"
-              onClick={() => setSettingsOpen(true)}
-              aria-label="Settings"
-            >
-              ⚙️
-            </button>
           </div>
         </div>
         {settingsOpen && !licenseOpen && (
@@ -11508,18 +11509,47 @@ export default function App() {
         )}
         <div className="title">HSK {currentLevel.label}</div>
         <div className="subtitle-row">
+          <button
+            type="button"
+            className="icon-btn subtitle-settings-btn"
+            onClick={() => setSettingsOpen(true)}
+            aria-label="Settings"
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37.997.608 2.296.07 2.572-1.065z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </button>
           <div className="subtitle">
-            New HSK 3.0 Level{" "}
+            New{" "}
             <button
               type="button"
               className="level-number-btn"
-              onClick={() => setLevelMenuOpen(v => !v)}
+              onClick={() => { setLanguageMenuOpen(v => !v); setLevelMenuOpen(false); }}
+              aria-label="Choose language"
+            >
+              HSK 3.0
+            </button>
+            {" "}Level{" "}
+            <button
+              type="button"
+              className="level-number-btn"
+              onClick={() => { setLevelMenuOpen(v => !v); setLanguageMenuOpen(false); }}
               aria-label="Choose HSK level"
             >
               {currentLevel.label}
             </button>
             {" "}· {totalWords} words
           </div>
+          {languageMenuOpen && (
+            <>
+              <div className="level-menu-overlay" onClick={() => setLanguageMenuOpen(false)} />
+              <div className="level-menu">
+                <button type="button" className="level-menu-item active" onClick={() => setLanguageMenuOpen(false)}>Chinese (HSK)</button>
+                <button type="button" className="level-menu-item" onClick={onSwitchLanguage}>Russian (TORFL)</button>
+              </div>
+            </>
+          )}
           {levelMenuOpen && (
             <>
               <div className="level-menu-overlay" onClick={() => setLevelMenuOpen(false)} />
@@ -11723,7 +11753,7 @@ export default function App() {
           ))}
         </div>
         {currentBadList.length > 0 && (
-          <div style={{ marginTop: 16, width: "100%", maxWidth: 420, display: "flex", gap: 8 }}>
+          <div style={{ marginTop: 16, width: "100%", maxWidth: 460, display: "flex", gap: 8 }}>
             <button className="btn-red" style={{ flex: 1 }} onClick={() => startBadList("mc")}>🔴 Bad List ({currentBadList.length} words)</button>
             <button className="btn-outline" style={{ fontSize: "0.7rem", padding: "10px 12px" }} onClick={clearBadList}>Clear</button>
           </div>
@@ -11844,4 +11874,24 @@ export default function App() {
       </div>
     </>
   );
+}
+
+export default function App() {
+  const [language, setLanguage] = useState(() => {
+    try { return localStorage.getItem("trainer_language") || "zh"; } catch { return "zh"; }
+  });
+  const [theme, setTheme] = useState(() => {
+    try { return localStorage.getItem("hsk4_theme") || "dark"; } catch { return "dark"; }
+  });
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("hsk4_theme", theme); } catch {}
+  }, [theme]);
+  useEffect(() => {
+    try { localStorage.setItem("trainer_language", language); } catch {}
+  }, [language]);
+  if (language === "ru") {
+    return <RussianApp theme={theme} setTheme={setTheme} onSwitchLanguage={() => setLanguage("zh")} />;
+  }
+  return <ChineseTrainer theme={theme} setTheme={setTheme} onSwitchLanguage={() => setLanguage("ru")} />;
 }
