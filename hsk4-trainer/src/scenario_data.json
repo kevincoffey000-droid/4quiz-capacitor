@@ -1,0 +1,1351 @@
+{
+  "_comment": "Reference data model for combinatorial scenario prompts. Three parts: tag taxonomy, a lexicon example (one language), and scenario definitions (language-agnostic).",
+  "tag_taxonomy": {
+    "_comment": "Narrative tags fill scenario slots. Lesson tags are broad categories used to tag whatever word list a user is currently studying (e.g. HSK1), so it can be sampled for the 'suggested words' panel and, where it plausibly fits, swapped directly into the generated scenario text. THING is split into THING_FOOD / THING_PERSONAL because a random noun can plausibly be a personal object (lost item) or a menu item, but not both -- 'kitchen' is not food, and 'umbrella' is not food either, so lumping them together produced nonsense like 'you order a kitchen'. Likewise a landmark ('near the bakery') is a fixed place, not a losable personal item, so LANDMARK is separate from THING_PERSONAL. PERSON is split into PERSON_SERVICE and PERSON_PUBLIC so a waiter can't get picked to give someone directions on the street.",
+    "narrative_tags": [
+      "PLACE",
+      "PLACE_DESTINATION",
+      "THING_FOOD",
+      "THING_PERSONAL",
+      "LANDMARK",
+      "PERSON_SERVICE",
+      "PERSON_PUBLIC",
+      "EXCUSE",
+      "ACTION",
+      "OUTCOME",
+      "ADJ",
+      "PROBLEM",
+      "DIRECTION",
+      "QUESTION",
+      "BODY_PART",
+      "DURATION",
+      "MEDICINE",
+      "COLOR",
+      "WEATHER",
+      "PLAN_OUTCOME",
+      "EXAM_PROBLEM",
+      "EXAM_OUTCOME",
+      "INTRO_QUESTION",
+      "FAMILY_MEMBER",
+      "MEETING_REACTION",
+      "TREATMENT",
+      "HOSPITAL_OUTCOME",
+      "TECH_PROBLEM",
+      "DEVICE",
+      "PARTY_PREP",
+      "PARTY_CELEBRATION",
+      "BIRTHDAY_OUTCOME"
+    ],
+    "_tag_sharing_note": "OUTCOME is shared across restaurant/taxi/hotel/shopping because they're all the same register -- a service worker resolving a complaint ('apologizes and fixes it' fits a shop clerk exactly as well as a waiter). weather_plans and exam_trouble are a different register (a friend making plans; a student's own feelings about an exam), so they get PLAN_OUTCOME / EXAM_OUTCOME instead of forcing 'the teacher argues with you' into a pool it doesn't belong in. Rule of thumb: share a tag across scenarios only when swapping either scenario's real lexicon entries into the other would still make sense -- if not, that's the signal to split.",
+    "lesson_pos_tags": [
+      "NOUN",
+      "VERB",
+      "ADJECTIVE",
+      "ADVERB",
+      "PHRASE"
+    ],
+    "lesson_pos_tags_not_used_for_generation": {
+      "_comment": "These get tagged too (useful for other parts of the app -- grammar drills, flashcards) but are deliberately left out of the suggested-words panel and never swap into scenario text. A lone measure word, particle, or pronoun isn't something a beginner can 'use in a sentence' the way a noun or verb is, and it doesn't add anything to say 'suggested word: 我' when the learner was going to use 'I' regardless.",
+      "PRONOUN": "he/she/this/that/who/etc. -- always needed, not meaningfully 'suggested'",
+      "QUESTION": "who/what/where/how -- same reasoning as PRONOUN",
+      "MEASURE": "classifier words (个/件/本) -- meaningless without a noun attached",
+      "NUMBER": "numerals -- not tied to any scenario content",
+      "PARTICLE": "grammatical particles (了/吗/的) -- no standalone lexical content"
+    },
+    "article_tags": [
+      "THING_FOOD",
+      "THING_PERSONAL",
+      "PLACE",
+      "PLACE_DESTINATION",
+      "LANDMARK",
+      "ADJ",
+      "MEDICINE",
+      "DEVICE"
+    ],
+    "_article_note": "A word's 'article' field can be an empty string to mean 'no article at all' -- needed for uncountable nouns (money) and plural-only nouns (pants) where 'a money'/'a pants' would be wrong. The code must render an empty article as no article and no extra space, not ' money'.",
+    "integration_map": {
+      "_comment": "How a lesson word's tag maps to eligible narrative slots. NOUN is gated by an explicit 'subtype' field on the word (food / personal / place) rather than being eligible everywhere -- a generic noun like 'weather' or 'name' has no subtype and is simply never swapped into scenario text (still fine as a suggested word). VERB and ADJECTIVE are left ungated: a random verb/adjective from a beginner list ('to sing', 'busy') might read as slightly odd in context but is never broken or semantically confused the way a wrong-category noun was. ADVERB and PHRASE map to nothing -- they're suggestion-only, since 'however' or 'thank you' can't grammatically fill a slot.",
+      "NOUN": {
+        "food": [
+          "THING_FOOD"
+        ],
+        "personal": [
+          "THING_PERSONAL"
+        ],
+        "place": [
+          "PLACE",
+          "PLACE_DESTINATION",
+          "LANDMARK"
+        ],
+        "body_part": [
+          "BODY_PART"
+        ],
+        "medicine": [
+          "MEDICINE"
+        ],
+        "family": [
+          "FAMILY_MEMBER"
+        ],
+        "device": [
+          "DEVICE"
+        ]
+      },
+      "VERB": [
+        "ACTION"
+      ],
+      "ADJECTIVE": [
+        "ADJ"
+      ],
+      "ADVERB": [],
+      "PHRASE": []
+    },
+    "response_cues": {
+      "state_goal": "Say what you want, or what you're looking for.",
+      "make_request": "Ask {person} for what you need.",
+      "point_out_problem": "Point out what's wrong.",
+      "respond_to_excuse": "Respond to what {person} just told you.",
+      "answer_question": "Answer {person}'s question.",
+      "describe": "Describe it in your own words.",
+      "react_to_outcome": "Say how you feel about how it turned out.",
+      "respond_to_advice": "Respond to {person}'s advice.",
+      "introduce_self": "Introduce yourself.",
+      "say_goodbye": "Say goodbye and wrap things up.",
+      "confirm_understanding": "Repeat back what you understood, to confirm.",
+      "state_plan": "Say what you plan to do.",
+      "greet": "Greet {person}.",
+      "present_gift": "Give {person} the gift and say something nice."
+    },
+    "_response_cues_note": "Every round gets a 'response_type' key pointing into response_cues, resolved (interpolating {person}, same as templates) and shown alongside the scenario text so the learner always knows what kind of thing to say -- not just what's happening. Reused across scenarios rather than hand-written per round so adding a new scenario just means picking from this list."
+  },
+  "lexicon_example": {
+    "_comment": "This is the NARRATIVE lexicon -- it's in the app's UI/display language (English here), NOT the target language being studied. It's what builds the story text itself (place/food/person/etc). Separately, hsk1_lexicon.json is the TARGET-language vocab (Chinese) being practiced -- its 'translation' field is what gets swapped into these English sentences when eligible. Every UI language needs its own copy of this narrative lexicon; the target-vocab lexicon (hsk1_lexicon.json or equivalent) is independent of UI language and only depends on what's being studied. THING_FOOD/THING_PERSONAL entries carry their own article so it can be combined with a lesson word too ({article, text}). PLACE/PLACE_DESTINATION/LANDMARK entries are plain phrase strings that already include their article/determiner; when a lesson word is swapped into one of those slots instead, the code synthesizes 'article + word' the same way.",
+    "tags": {
+      "PLACE": [
+        "a small cafe",
+        "a fancy restaurant",
+        "a food truck",
+        "a diner"
+      ],
+      "PLACE_DESTINATION": [
+        "the train station",
+        "the museum",
+        "the pharmacy",
+        "the post office",
+        "the hotel",
+        "the airport",
+        "the shopping mall",
+        "the clothing store",
+        "the classroom",
+        "the hospital"
+      ],
+      "THING_FOOD": [
+        {
+          "article": "a",
+          "text": "coffee"
+        },
+        {
+          "article": "a",
+          "text": "salad"
+        },
+        {
+          "article": "the",
+          "text": "soup of the day"
+        },
+        {
+          "article": "a",
+          "text": "sandwich"
+        }
+      ],
+      "THING_PERSONAL": [
+        {
+          "article": "an",
+          "text": "umbrella"
+        },
+        {
+          "article": "a",
+          "text": "backpack"
+        },
+        {
+          "article": "a",
+          "text": "phone"
+        },
+        {
+          "article": "a",
+          "text": "wallet"
+        }
+      ],
+      "MEDICINE": [
+        {
+          "article": "some",
+          "text": "medicine"
+        },
+        {
+          "article": "some",
+          "text": "pain relievers"
+        }
+      ],
+      "LANDMARK": [
+        "a bakery",
+        "a bank",
+        "a fountain",
+        "a bookstore",
+        "a shop"
+      ],
+      "PERSON_SERVICE": [
+        "the waiter",
+        "the driver",
+        "the pharmacist",
+        "the front desk clerk",
+        "the shop clerk",
+        "the teacher",
+        "the doctor",
+        "the tech support person"
+      ],
+      "PERSON_PUBLIC": [
+        "a stranger",
+        "a clerk",
+        "a guard",
+        "your friend",
+        "a new classmate"
+      ],
+      "EXCUSE": [
+        "the kitchen is backed up",
+        "we ran out",
+        "the cook is new",
+        "it's a busy night",
+        "there was a lot of traffic",
+        "I misunderstood you",
+        "that's the last one in stock",
+        "we don't have your size"
+      ],
+      "ACTION": [
+        "replace it",
+        "give a discount",
+        "bring it quickly",
+        "rest for a few days",
+        "drink more water",
+        "come back next week",
+        "play basketball",
+        "go swimming",
+        "play soccer",
+        "go jogging",
+        "go dancing",
+        "stay home",
+        "read it again carefully",
+        "skip it and come back later",
+        "take your time",
+        "restart it",
+        "update the software",
+        "bring it in for repair",
+        "reset your password",
+        "decorate the room",
+        "prepare some food",
+        "invite a few more friends",
+        "buy a cake",
+        "exchange phone numbers",
+        "agree to meet up again",
+        "say goodbye"
+      ],
+      "OUTCOME": [
+        "apologizes and fixes it",
+        "argues with you",
+        "offers something free",
+        "shrugs and walks away"
+      ],
+      "COLOR": [
+        "black",
+        "white",
+        "red",
+        "blue",
+        "green"
+      ],
+      "WEATHER": [
+        "sunny",
+        "cloudy",
+        "rainy",
+        "really hot",
+        "freezing cold"
+      ],
+      "PLAN_OUTCOME": [
+        "ends up having a great time",
+        "cancels because of the rain",
+        "shows up late",
+        "brings a friend along",
+        "suggests doing it again next week"
+      ],
+      "BIRTHDAY_OUTCOME": [
+        "has a wonderful birthday",
+        "says it's the best birthday ever",
+        "gets tired and goes to bed early",
+        "invites everyone back next year"
+      ],
+      "EXAM_PROBLEM": [
+        "you don't understand it",
+        "you forgot how to answer it",
+        "you're running out of time",
+        "it doesn't make sense"
+      ],
+      "EXAM_OUTCOME": [
+        "feel confident about it",
+        "feel like you failed",
+        "finish just in time",
+        "realize you skipped a whole page"
+      ],
+      "INTRO_QUESTION": [
+        "What's your name?",
+        "Where are you from?",
+        "What do you do?",
+        "Do you have any siblings?"
+      ],
+      "FAMILY_MEMBER": [
+        "brother",
+        "sister",
+        "best friend",
+        "mom",
+        "dad"
+      ],
+      "MEETING_REACTION": [
+        "Nice to meet you!",
+        "That's so cool!",
+        "We should hang out sometime.",
+        "Small world!"
+      ],
+      "TREATMENT": [
+        "an X-ray",
+        "some stitches",
+        "a few days of rest",
+        "a cast",
+        "physical therapy"
+      ],
+      "HOSPITAL_OUTCOME": [
+        "gives you a treatment plan and sends you home",
+        "admits you for observation",
+        "says you'll be fine in no time",
+        "recommends a follow-up next week"
+      ],
+      "TECH_PROBLEM": [
+        "it won't turn on",
+        "the screen is broken",
+        "it can't connect to the internet",
+        "I forgot my password"
+      ],
+      "DEVICE": [
+        {
+          "article": "a",
+          "text": "phone"
+        },
+        {
+          "article": "a",
+          "text": "computer"
+        },
+        {
+          "article": "a",
+          "text": "laptop"
+        }
+      ],
+      "PARTY_PREP": [
+        "decorate the room",
+        "prepare some food",
+        "buy a cake",
+        "invite a few more friends",
+        "hang up some balloons"
+      ],
+      "PARTY_CELEBRATION": [
+        "sing happy birthday",
+        "dance and play music",
+        "take a lot of photos",
+        "play some games",
+        "eat cake"
+      ],
+      "ADJ": [
+        {
+          "article": "a",
+          "text": "black"
+        },
+        {
+          "article": "a",
+          "text": "small"
+        },
+        {
+          "article": "an",
+          "text": "old"
+        },
+        {
+          "article": "an",
+          "text": "expensive"
+        },
+        {
+          "article": "a",
+          "text": "broken"
+        }
+      ],
+      "PROBLEM": [
+        "it's closed",
+        "it's the wrong address",
+        "it moved last month",
+        "your room isn't ready",
+        "there's no reservation under your name",
+        "the room is already taken"
+      ],
+      "DIRECTION": [
+        "turn left",
+        "go straight",
+        "cross the street",
+        "go past the bakery",
+        "take a different route",
+        "turn around"
+      ],
+      "QUESTION": [
+        "What color is it?",
+        "When did you last have it?",
+        "What does it look like?",
+        "Does it hurt all the time or only sometimes?",
+        "Have you taken anything for it?",
+        "Can you move it?",
+        "How did this happen?"
+      ],
+      "BODY_PART": [
+        "head",
+        "stomach",
+        "throat",
+        "back",
+        "hand"
+      ],
+      "DURATION": [
+        "a little while",
+        "two days",
+        "about a week",
+        "a few hours"
+      ]
+    }
+  },
+  "lesson_vocab_example": {
+    "lesson_id": "week12",
+    "_comment": "'subtype' is what unlocks NOUN swap-in (see integration_map). 'article' overrides the vowel-sound heuristic for exceptions the heuristic gets wrong (e.g. 'a university', not 'an university').",
+    "words": [
+      {
+        "word": "paraguas",
+        "translation": "umbrella",
+        "pos": "NOUN",
+        "subtype": "personal"
+      },
+      {
+        "word": "decidir",
+        "translation": "to decide",
+        "pos": "VERB"
+      },
+      {
+        "word": "cansado",
+        "translation": "tired",
+        "pos": "ADJECTIVE"
+      },
+      {
+        "word": "sin embargo",
+        "translation": "however",
+        "pos": "ADVERB"
+      },
+      {
+        "word": "cocina",
+        "translation": "kitchen",
+        "pos": "NOUN"
+      },
+      {
+        "word": "correr",
+        "translation": "to run",
+        "pos": "VERB"
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "restaurant_wrong_order",
+      "label": "Wrong order at a restaurant",
+      "context_slots": [
+        {
+          "name": "place",
+          "tag": "PLACE"
+        },
+        {
+          "name": "person",
+          "tag": "PERSON_SERVICE",
+          "default": "the waiter"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "fresh_slots": [
+            {
+              "name": "ordered_item",
+              "tag": "THING_FOOD"
+            }
+          ],
+          "template": "You are at {place}. You want to order {ordered_item}.",
+          "response_type": "state_goal"
+        },
+        {
+          "round": 2,
+          "fresh_slots": [
+            {
+              "name": "wrong_item",
+              "tag": "THING_FOOD"
+            }
+          ],
+          "template": "{person} brings you {wrong_item} instead of {ordered_item}.",
+          "response_type": "point_out_problem"
+        },
+        {
+          "round": 3,
+          "fresh_slots": [
+            {
+              "name": "excuse",
+              "tag": "EXCUSE"
+            }
+          ],
+          "template": "You point out the mistake. {person} says: \"{excuse}\"",
+          "response_type": "respond_to_excuse"
+        },
+        {
+          "round": 4,
+          "fresh_slots": [
+            {
+              "name": "fix_action",
+              "tag": "ACTION"
+            }
+          ],
+          "template": "You ask {person} to {fix_action}.",
+          "response_type": "make_request"
+        },
+        {
+          "round": 5,
+          "fresh_slots": [
+            {
+              "name": "outcome",
+              "tag": "OUTCOME"
+            }
+          ],
+          "template": "{person} {outcome}.",
+          "response_type": "react_to_outcome"
+        }
+      ]
+    },
+    {
+      "id": "lost_item",
+      "label": "Lost something in public",
+      "context_slots": [
+        {
+          "name": "place",
+          "tag": "PLACE_DESTINATION"
+        },
+        {
+          "name": "person",
+          "tag": "PERSON_PUBLIC"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "fresh_slots": [
+            {
+              "name": "lost_item",
+              "tag": "THING_PERSONAL"
+            }
+          ],
+          "template": "You realize you lost {lost_item} at {place}.",
+          "response_type": "state_goal"
+        },
+        {
+          "round": 2,
+          "fresh_slots": [],
+          "template": "You ask {person} if they've seen it.",
+          "response_type": "make_request"
+        },
+        {
+          "round": 3,
+          "fresh_slots": [
+            {
+              "name": "detail_question",
+              "tag": "QUESTION"
+            }
+          ],
+          "template": "{person} asks you: \"{detail_question}\"",
+          "response_type": "answer_question"
+        },
+        {
+          "round": 4,
+          "fresh_slots": [
+            {
+              "name": "descriptor",
+              "tag": "ADJ"
+            }
+          ],
+          "template": "You describe it: it's {descriptor} one.",
+          "response_type": "describe"
+        },
+        {
+          "round": 5,
+          "fresh_slots": [
+            {
+              "name": "resolution",
+              "tag": "OUTCOME"
+            }
+          ],
+          "template": "{person} {resolution}.",
+          "response_type": "react_to_outcome"
+        }
+      ]
+    },
+    {
+      "id": "asking_directions",
+      "label": "Asking for directions and hitting a snag",
+      "context_slots": [
+        {
+          "name": "place",
+          "tag": "PLACE_DESTINATION"
+        },
+        {
+          "name": "person",
+          "tag": "PERSON_PUBLIC"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "fresh_slots": [],
+          "template": "You're looking for {place}.",
+          "response_type": "state_goal"
+        },
+        {
+          "round": 2,
+          "fresh_slots": [],
+          "template": "You ask {person} for directions.",
+          "response_type": "make_request"
+        },
+        {
+          "round": 3,
+          "fresh_slots": [
+            {
+              "name": "direction_step",
+              "tag": "DIRECTION"
+            },
+            {
+              "name": "landmark",
+              "tag": "LANDMARK"
+            }
+          ],
+          "template": "They tell you to {direction_step}, near {landmark}.",
+          "response_type": "confirm_understanding"
+        },
+        {
+          "round": 4,
+          "fresh_slots": [
+            {
+              "name": "problem",
+              "tag": "PROBLEM"
+            }
+          ],
+          "template": "You arrive, but {problem}.",
+          "response_type": "point_out_problem"
+        },
+        {
+          "round": 5,
+          "fresh_slots": [
+            {
+              "name": "decision",
+              "tag": "ACTION"
+            }
+          ],
+          "template": "You decide what to do: {decision}.",
+          "response_type": "state_plan"
+        }
+      ]
+    },
+    {
+      "id": "taking_taxi",
+      "label": "Taxi takes you to the wrong place",
+      "_comment": "Structurally identical to restaurant_wrong_order (same tags: PLACE_DESTINATION/EXCUSE/ACTION/OUTCOME) -- proof that new scenarios don't always need new tags, just new lexicon entries and a re-themed template.",
+      "context_slots": [
+        {
+          "name": "place",
+          "tag": "PLACE_DESTINATION"
+        },
+        {
+          "name": "person",
+          "tag": "PERSON_SERVICE",
+          "default": "the driver"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "fresh_slots": [],
+          "template": "You get in a taxi and tell {person} you want to go to {place}.",
+          "response_type": "state_goal"
+        },
+        {
+          "round": 2,
+          "fresh_slots": [
+            {
+              "name": "wrong_place",
+              "tag": "PLACE_DESTINATION"
+            }
+          ],
+          "template": "{person} takes you to {wrong_place} instead of {place}.",
+          "response_type": "point_out_problem"
+        },
+        {
+          "round": 3,
+          "fresh_slots": [
+            {
+              "name": "excuse",
+              "tag": "EXCUSE"
+            }
+          ],
+          "template": "You point out the mistake. {person} says: \"{excuse}\"",
+          "response_type": "respond_to_excuse"
+        },
+        {
+          "round": 4,
+          "fresh_slots": [
+            {
+              "name": "fix_action",
+              "tag": "ACTION"
+            }
+          ],
+          "template": "You ask {person} to {fix_action}.",
+          "response_type": "make_request"
+        },
+        {
+          "round": 5,
+          "fresh_slots": [
+            {
+              "name": "outcome",
+              "tag": "OUTCOME"
+            }
+          ],
+          "template": "{person} {outcome}.",
+          "response_type": "react_to_outcome"
+        }
+      ]
+    },
+    {
+      "id": "pharmacy_visit",
+      "label": "Not feeling well, at the pharmacy",
+      "context_slots": [
+        {
+          "name": "place",
+          "tag": "PLACE_DESTINATION"
+        },
+        {
+          "name": "person",
+          "tag": "PERSON_SERVICE",
+          "default": "the pharmacist"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "fresh_slots": [
+            {
+              "name": "body_part",
+              "tag": "BODY_PART"
+            }
+          ],
+          "template": "You don't feel well. Your {body_part} hurts, so you go to {place}.",
+          "response_type": "state_goal"
+        },
+        {
+          "round": 2,
+          "fresh_slots": [
+            {
+              "name": "detail_question",
+              "tag": "QUESTION"
+            }
+          ],
+          "template": "{person} asks: \"{detail_question}\"",
+          "response_type": "answer_question"
+        },
+        {
+          "round": 3,
+          "fresh_slots": [
+            {
+              "name": "duration",
+              "tag": "DURATION"
+            }
+          ],
+          "template": "You tell {person} it's been hurting for {duration}.",
+          "response_type": "answer_question"
+        },
+        {
+          "round": 4,
+          "fresh_slots": [
+            {
+              "name": "medicine",
+              "tag": "MEDICINE"
+            },
+            {
+              "name": "advice",
+              "tag": "ACTION"
+            }
+          ],
+          "template": "{person} gives you {medicine} and tells you to {advice}.",
+          "response_type": "respond_to_advice"
+        },
+        {
+          "round": 5,
+          "fresh_slots": [
+            {
+              "name": "outcome",
+              "tag": "OUTCOME"
+            }
+          ],
+          "template": "{person} {outcome}.",
+          "response_type": "react_to_outcome"
+        }
+      ]
+    },
+    {
+      "id": "hotel_checkin_problem",
+      "label": "Hotel check-in problem",
+      "context_slots": [
+        {
+          "name": "place",
+          "tag": "PLACE_DESTINATION"
+        },
+        {
+          "name": "person",
+          "tag": "PERSON_SERVICE",
+          "default": "the front desk clerk"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "fresh_slots": [],
+          "template": "You arrive at {place} to check in.",
+          "response_type": "state_goal"
+        },
+        {
+          "round": 2,
+          "fresh_slots": [
+            {
+              "name": "problem",
+              "tag": "PROBLEM"
+            }
+          ],
+          "template": "{person} says: \"{problem}\"",
+          "response_type": "respond_to_excuse"
+        },
+        {
+          "round": 3,
+          "fresh_slots": [
+            {
+              "name": "fix_action",
+              "tag": "ACTION"
+            }
+          ],
+          "template": "You ask {person} to {fix_action}.",
+          "response_type": "make_request"
+        },
+        {
+          "round": 4,
+          "fresh_slots": [
+            {
+              "name": "duration",
+              "tag": "DURATION"
+            }
+          ],
+          "template": "{person} says it will take {duration}.",
+          "response_type": "respond_to_advice"
+        },
+        {
+          "round": 5,
+          "fresh_slots": [
+            {
+              "name": "outcome",
+              "tag": "OUTCOME"
+            }
+          ],
+          "template": "{person} {outcome}.",
+          "response_type": "react_to_outcome"
+        }
+      ]
+    },
+    {
+      "id": "shopping_wrong_item",
+      "label": "Wrong item/color at a store",
+      "_comment": "Same register as restaurant_wrong_order/taking_taxi -- reuses EXCUSE/ACTION/OUTCOME as-is. THING_PERSONAL doubles as 'thing you want to buy' here, which fits: clothes/bags/watches are exactly the kind of thing subtyped personal.",
+      "context_slots": [
+        {
+          "name": "place",
+          "tag": "PLACE_DESTINATION"
+        },
+        {
+          "name": "person",
+          "tag": "PERSON_SERVICE",
+          "default": "the shop clerk"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "fresh_slots": [
+            {
+              "name": "wanted_item",
+              "tag": "THING_PERSONAL"
+            }
+          ],
+          "template": "You are at {place}. You want to buy {wanted_item}.",
+          "response_type": "state_goal"
+        },
+        {
+          "round": 2,
+          "fresh_slots": [
+            {
+              "name": "wrong_item",
+              "tag": "THING_PERSONAL"
+            },
+            {
+              "name": "wrong_color",
+              "tag": "COLOR"
+            }
+          ],
+          "template": "{person} shows you {wrong_item} in {wrong_color}.",
+          "response_type": "point_out_problem"
+        },
+        {
+          "round": 3,
+          "fresh_slots": [
+            {
+              "name": "excuse",
+              "tag": "EXCUSE"
+            }
+          ],
+          "template": "You point out the mistake. {person} says: \"{excuse}\"",
+          "response_type": "respond_to_excuse"
+        },
+        {
+          "round": 4,
+          "fresh_slots": [
+            {
+              "name": "fix_action",
+              "tag": "ACTION"
+            }
+          ],
+          "template": "You ask {person} to {fix_action}.",
+          "response_type": "make_request"
+        },
+        {
+          "round": 5,
+          "fresh_slots": [
+            {
+              "name": "outcome",
+              "tag": "OUTCOME"
+            }
+          ],
+          "template": "{person} {outcome}.",
+          "response_type": "react_to_outcome"
+        }
+      ]
+    },
+    {
+      "id": "weather_plans",
+      "label": "Making plans with a friend around the weather",
+      "context_slots": [
+        {
+          "name": "person",
+          "tag": "PERSON_PUBLIC",
+          "default": "your friend"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "fresh_slots": [
+            {
+              "name": "activity",
+              "tag": "ACTION"
+            }
+          ],
+          "template": "{person} asks if you want to {activity} today.",
+          "response_type": "answer_question"
+        },
+        {
+          "round": 2,
+          "fresh_slots": [
+            {
+              "name": "weather",
+              "tag": "WEATHER"
+            }
+          ],
+          "template": "You check the weather: it's {weather}.",
+          "response_type": "describe"
+        },
+        {
+          "round": 3,
+          "fresh_slots": [
+            {
+              "name": "alt_activity",
+              "tag": "ACTION"
+            }
+          ],
+          "template": "{person} suggests you {alt_activity} instead.",
+          "response_type": "respond_to_advice"
+        },
+        {
+          "round": 4,
+          "fresh_slots": [
+            {
+              "name": "duration",
+              "tag": "DURATION"
+            }
+          ],
+          "template": "You agree to meet up in {duration}.",
+          "response_type": "state_plan"
+        },
+        {
+          "round": 5,
+          "fresh_slots": [
+            {
+              "name": "outcome",
+              "tag": "PLAN_OUTCOME"
+            }
+          ],
+          "template": "{person} {outcome}.",
+          "response_type": "react_to_outcome"
+        }
+      ]
+    },
+    {
+      "id": "exam_trouble",
+      "label": "Trouble during an exam",
+      "context_slots": [
+        {
+          "name": "place",
+          "tag": "PLACE_DESTINATION"
+        },
+        {
+          "name": "person",
+          "tag": "PERSON_SERVICE",
+          "default": "the teacher"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "fresh_slots": [],
+          "template": "You arrive at {place} for your exam.",
+          "response_type": "greet"
+        },
+        {
+          "round": 2,
+          "fresh_slots": [
+            {
+              "name": "exam_problem",
+              "tag": "EXAM_PROBLEM"
+            }
+          ],
+          "template": "You look at the first question, but {exam_problem}.",
+          "response_type": "point_out_problem"
+        },
+        {
+          "round": 3,
+          "fresh_slots": [],
+          "template": "You raise your hand and ask {person} for help.",
+          "response_type": "make_request"
+        },
+        {
+          "round": 4,
+          "fresh_slots": [
+            {
+              "name": "advice",
+              "tag": "ACTION"
+            }
+          ],
+          "template": "{person} tells you to {advice}.",
+          "response_type": "respond_to_advice"
+        },
+        {
+          "round": 5,
+          "fresh_slots": [
+            {
+              "name": "outcome",
+              "tag": "EXAM_OUTCOME"
+            }
+          ],
+          "template": "You finish the exam and {outcome}.",
+          "response_type": "react_to_outcome"
+        }
+      ]
+    },
+    {
+      "id": "meeting_someone_new",
+      "label": "Meeting someone new",
+      "_comment": "Friendly-register scenario, not a complaint -- gets its own INTRO_QUESTION/MEETING_REACTION rather than reusing EXCUSE/OUTCOME. FAMILY_MEMBER is fed by the new 'family' NOUN subtype.",
+      "context_slots": [
+        {
+          "name": "person",
+          "tag": "PERSON_PUBLIC",
+          "default": "a new classmate"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "fresh_slots": [],
+          "template": "You meet {person} for the first time.",
+          "response_type": "introduce_self"
+        },
+        {
+          "round": 2,
+          "fresh_slots": [
+            {
+              "name": "question",
+              "tag": "INTRO_QUESTION"
+            }
+          ],
+          "template": "{person} asks: \"{question}\"",
+          "response_type": "answer_question"
+        },
+        {
+          "round": 3,
+          "fresh_slots": [
+            {
+              "name": "family_member",
+              "tag": "FAMILY_MEMBER"
+            }
+          ],
+          "template": "You introduce yourself and mention your {family_member}.",
+          "response_type": "describe"
+        },
+        {
+          "round": 4,
+          "fresh_slots": [
+            {
+              "name": "reaction",
+              "tag": "MEETING_REACTION"
+            }
+          ],
+          "template": "{person} says: \"{reaction}\"",
+          "response_type": "react_to_outcome"
+        },
+        {
+          "round": 5,
+          "fresh_slots": [
+            {
+              "name": "closing_action",
+              "tag": "ACTION"
+            }
+          ],
+          "template": "Before you go, you {closing_action}.",
+          "response_type": "say_goodbye"
+        }
+      ]
+    },
+    {
+      "id": "hospital_visit",
+      "label": "A more serious injury -- at the hospital",
+      "_comment": "Care register, not complaint-resolution -- reuses BODY_PART/DURATION/QUESTION (already medical-flavored from pharmacy_visit) but gets its own TREATMENT/HOSPITAL_OUTCOME since a doctor 'shrugging and walking away' (OUTCOME) doesn't fit.",
+      "context_slots": [
+        {
+          "name": "place",
+          "tag": "PLACE_DESTINATION"
+        },
+        {
+          "name": "person",
+          "tag": "PERSON_SERVICE",
+          "default": "the doctor"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "fresh_slots": [
+            {
+              "name": "body_part",
+              "tag": "BODY_PART"
+            }
+          ],
+          "template": "You hurt your {body_part} and go to {place}.",
+          "response_type": "state_goal"
+        },
+        {
+          "round": 2,
+          "fresh_slots": [
+            {
+              "name": "question",
+              "tag": "QUESTION"
+            }
+          ],
+          "template": "{person} asks: \"{question}\"",
+          "response_type": "answer_question"
+        },
+        {
+          "round": 3,
+          "fresh_slots": [
+            {
+              "name": "duration",
+              "tag": "DURATION"
+            }
+          ],
+          "template": "You tell {person} it happened {duration} ago.",
+          "response_type": "answer_question"
+        },
+        {
+          "round": 4,
+          "fresh_slots": [
+            {
+              "name": "treatment",
+              "tag": "TREATMENT"
+            }
+          ],
+          "template": "{person} says you need {treatment}.",
+          "response_type": "respond_to_advice"
+        },
+        {
+          "round": 5,
+          "fresh_slots": [
+            {
+              "name": "outcome",
+              "tag": "HOSPITAL_OUTCOME"
+            }
+          ],
+          "template": "{person} {outcome}.",
+          "response_type": "react_to_outcome"
+        }
+      ]
+    },
+    {
+      "id": "tech_trouble",
+      "label": "Phone or computer stops working",
+      "_comment": "Same service-complaint register as restaurant/taxi/hotel/shopping -- reuses ACTION/DURATION/OUTCOME as-is, only needed one new tag (TECH_PROBLEM) plus a dedicated DEVICE tag/subtype. THING_PERSONAL was tried first but it's too broad -- 'your bird stops working' or 'your basketball stops working' is absurd, since most personal items aren't electronics. DEVICE is narrower (phone/computer/laptop) and only 电脑/手机/电视 are tagged with that subtype.",
+      "context_slots": [
+        {
+          "name": "device",
+          "tag": "DEVICE"
+        },
+        {
+          "name": "person",
+          "tag": "PERSON_SERVICE",
+          "default": "the tech support person"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "fresh_slots": [],
+          "template": "You contact {person} because {device} isn't working.",
+          "response_type": "state_goal"
+        },
+        {
+          "round": 2,
+          "fresh_slots": [
+            {
+              "name": "problem",
+              "tag": "TECH_PROBLEM"
+            }
+          ],
+          "template": "{person} asks what's wrong. You say: \"{problem}\"",
+          "response_type": "describe"
+        },
+        {
+          "round": 3,
+          "fresh_slots": [
+            {
+              "name": "fix_action",
+              "tag": "ACTION"
+            }
+          ],
+          "template": "{person} tells you to {fix_action}.",
+          "response_type": "respond_to_advice"
+        },
+        {
+          "round": 4,
+          "fresh_slots": [
+            {
+              "name": "duration",
+              "tag": "DURATION"
+            }
+          ],
+          "template": "{person} says it will take {duration}.",
+          "response_type": "respond_to_advice"
+        },
+        {
+          "round": 5,
+          "fresh_slots": [
+            {
+              "name": "outcome",
+              "tag": "OUTCOME"
+            }
+          ],
+          "template": "{person} {outcome}.",
+          "response_type": "react_to_outcome"
+        }
+      ]
+    },
+    {
+      "id": "birthday_party",
+      "label": "Planning a birthday party",
+      "_comment": "prep_action/celebration_action originally reused ACTION, but ACTION is lesson-swap-eligible from ANY tagged verb, and transitive verbs used bare ('You all invite together.', 'You all pass together.') read as broken or incomplete -- unlike 'ask {person} to {action}', which tolerates a bare verb much better. PARTY_PREP/PARTY_CELEBRATION are narrative-lexicon-only (no lesson-swap) self-contained activity phrases instead, so this slot can never produce a dangling transitive verb. THING_PERSONAL still doubles fine as 'gift' -- that one held up in testing.",
+      "context_slots": [
+        {
+          "name": "person",
+          "tag": "PERSON_PUBLIC",
+          "default": "your friend"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "fresh_slots": [],
+          "template": "It's {person}'s birthday, and you're helping plan a party.",
+          "response_type": "state_plan"
+        },
+        {
+          "round": 2,
+          "fresh_slots": [
+            {
+              "name": "prep_action",
+              "tag": "PARTY_PREP"
+            }
+          ],
+          "template": "You {prep_action} to get ready.",
+          "response_type": "describe"
+        },
+        {
+          "round": 3,
+          "fresh_slots": [
+            {
+              "name": "gift_item",
+              "tag": "THING_PERSONAL"
+            }
+          ],
+          "template": "You give {person} {gift_item} as a gift.",
+          "response_type": "present_gift"
+        },
+        {
+          "round": 4,
+          "fresh_slots": [
+            {
+              "name": "celebration_action",
+              "tag": "PARTY_CELEBRATION"
+            }
+          ],
+          "template": "You all {celebration_action} together.",
+          "response_type": "describe"
+        },
+        {
+          "round": 5,
+          "fresh_slots": [
+            {
+              "name": "outcome",
+              "tag": "BIRTHDAY_OUTCOME"
+            }
+          ],
+          "template": "{person} {outcome}.",
+          "response_type": "react_to_outcome"
+        }
+      ]
+    }
+  ]
+}

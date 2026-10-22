@@ -1,0 +1,200 @@
+1. 啊 (a) - particle: emphasis / agreement
+2. 爱好 (àihào) - hobby; to like
+3. 白色 (báisè) - white
+4. 班 (bān) - class; team
+5. 帮 (bāng) - to help
+6. 帮忙 (bāngmáng) - to help
+7. 包 (bāo) - to wrap; bag; package
+8. 本子 (běnzi) - notebook
+9. 比 (Bǐ) - to compare; than
+10. 笔 (bǐ) - pen; pencil
+11. 别 (bié) - don't (do sth); other
+12. 不错 (bùcuò) - pretty good; not bad
+13. 不好意思 (bù hǎo yì si) - embarrassed; sorry (mild)
+14. 长 (cháng) - long
+15. 车站 (chēzhàn) - station; stop
+16. 出 (chū) - to go out; to come out
+17. 出国 (chūguó) - to go abroad
+18. 出来 (chūlái) - to come out
+19. 出门 (chūmén) - to go out; to leave home
+20. 出去 (chūqù) - to go out
+21. 床 (chuáng) - bed
+22. 词 (cí) - word
+23. 次 (cì) - time(s); measure word for occurrences
+24. 从 (cóng) - from
+25. 从小 (cóngxiǎo) - since childhood
+26. 错 (cuò) - wrong; mistake
+27. 打 (dǎ) - to hit; to play (a game); to make (a call)
+28. 打车 (dǎchē) - to take a taxi
+29. 打开 (dǎkāi) - to open; to turn on
+30. 但 (dàn) - but
+31. 但是 (dànshì) - but; however
+32. 得 (de) - particle: verb complement marker
+33. 地 (de) - particle: adverbial marker (-ly)
+34. 等 (děng) - to wait; etc.
+35. 地铁 (dìtiě) - subway
+36. 点 (diǎn) - o'clock; point; to order (food)
+37. 懂 (dǒng) - to understand
+38. 动 (dòng) - to move
+39. 饭馆 (fànguǎn) - restaurant
+40. 飞 (fēi) - to fly
+41. 高 (gāo) - tall; high
+42. 高中 (gāozhōng) - high school
+43. 告诉 (gàosu) - to tell
+44. 个子 (gèzi) - height (of a person)
+45. 跟 (gēn) - with; and; to follow
+46. 公交车 (gōngjiāochē) - (public) bus
+47. 过 (guò) - to pass; to spend (time); to cross
+48. 过 (guo) - particle: have done (before)
+49. 过来 (guòlái) - to come over
+50. 过年 (guònián) - to celebrate New Year
+51. 过去 (guòqù) - the past; to go over
+52. 还是 (háishi) - or; had better; still
+53. 黑色 (hēisè) - black
+54. 红茶 (hóngchá) - black tea
+55. 红色 (hóngsè) - red
+56. 后面 (hòumian) - behind; the back
+57. 花 (huā) - to spend (money/time)
+58. 花 (huā) - flower
+59. 画 (huà) - to draw; painting
+60. 坏 (huài) - bad; broken
+61. 回来 (huílai) - to come back
+62. 回去 (huíqu) - to go back
+63. 机场 (jīchǎng) - airport
+64. 机票 (jīpiào) - plane ticket
+65. 记得 (jìde) - to remember
+66. 间 (jiān) - measure word for rooms; between
+67. 教 (jiāo) - to teach
+68. 教室 (jiàoshì) - classroom
+69. 介绍 (jièshào) - to introduce
+70. 进 (jìn) - to enter; to go in
+71. 近 (jìn) - near
+72. 进来 (jìnlái) - to come in
+73. 进去 (jìnqù) - to go in
+74. 经常 (jīngcháng) - often; frequently
+75. 酒店 (jiǔdiàn) - hotel
+76. 就 (jiù) - then; just; right away
+77. 咖啡 (kāfēi) - coffee
+78. 开始 (kāishǐ) - to begin; beginning
+79. 开学 (kāixué) - school starts (new term)
+80. 考 (kǎo) - to test; to take an exam
+81. 考试 (kǎoshì) - exam; to take a test
+82. 可能 (kěnéng) - maybe; possible
+83. 裤子 (kùzi) - pants
+84. 快 (kuài) - fast; quick; soon
+85. 快乐 (kuàilè) - happy
+86. 快要 (kuàiyào) - about to; soon
+87. 篮球 (lánqiú) - basketball
+88. 累 (lèi) - tired
+89. 离 (lí) - from (a place); to leave
+90. 里面 (lǐmiàn) - inside
+91. 楼 (lóu) - building; floor
+92. 路 (lù) - road
+93. 路上 (lùshang) - on the way
+94. 旅游 (lǚyóu) - to travel; trip
+95. 绿茶 (lǜchá) - green tea
+96. 绿色 (lǜsè) - green
+97. 慢 (màn) - slow
+98. 没意思 (méiyìsi) - boring
+99. 每 (měi) - each; every
+100. 门 (mén) - door; gate
+101. 门口 (ménkǒu) - doorway; entrance
+102. 门票 (ménpiào) - admission ticket
+103. 面 (miàn) - face; side; noodles
+104. 名 (míng) - name; famous
+105. 拿 (ná) - to hold; to take
+106. 那么 (nàme) - like that; so; then
+107. 那样 (nàyàng) - that way; like that
+108. 奶茶 (nǎichá) - milk tea
+109. 奶奶 (nǎinai) - grandma (paternal)
+110. 男孩儿 (nánháir) - boy
+111. 鸟 (niǎo) - bird
+112. 女孩儿 (nǚháir) - girl
+113. 旁边 (pángbiān) - next to; beside
+114. 跑 (pǎo) - to run
+115. 跑步 (pǎobù) - to jog; to run
+116. 票 (piào) - ticket
+117. 妻子 (qīzi) - wife
+118. 起来 (qǐlái) - to get up; to stand up
+119. 前面 (qiánmiàn) - in front; ahead
+120. 晴 (qíng) - sunny; clear (weather)
+121. 球 (qiú) - ball
+122. 让 (ràng) - to let; to make (sb do sth)
+123. 肉 (ròu) - meat
+124. 商场 (shāngchǎng) - shopping mall
+125. 上来 (shànglái) - to come up
+126. 上面 (shàngmiàn) - on top; above
+127. 上去 (shàngqù) - to go up
+128. 上网 (shàngwǎng) - to go online
+129. 身体 (shēntǐ) - body; health
+130. 生日 (shēngrì) - birthday
+131. 时 (shí) - time; when
+132. 事情 (shìqing) - matter; thing
+133. 手 (shǒu) - hand
+134. 手表 (shǒubiǎo) - watch (wrist)
+135. 书包 (shūbāo) - schoolbag
+136. 舒服 (shūfu) - comfortable
+137. 送 (sòng) - to send; to give (a gift); to see (sb) off
+138. 虽然 (suīrán) - although
+139. 所以 (suǒyǐ) - so; therefore
+140. 疼 (téng) - to hurt (pain)
+141. 踢 (tī) - to kick
+142. 题 (tí) - question; topic
+143. 条 (tiáo) - measure word for long thin things
+144. 跳舞 (tiàowǔ) - to dance
+145. 头 (tóu) - head
+146. 外国 (wàiguó) - foreign country
+147. 外面 (wàimiàn) - outside
+148. 完 (wán) - to finish
+149. 万 (wàn) - ten thousand
+150. 往 (wǎng) - towards; to
+151. 网上 (wǎngshàng) - online
+152. 忘 (wàng) - to forget
+153. 位 (wèi) - measure word for people (polite)
+154. 为什么 (wèishénme) - why
+155. 希望 (xīwàng) - to hope; hope
+156. 洗 (xǐ) - to wash
+157. 洗手间 (xǐshǒujiān) - bathroom; restroom
+158. 下来 (xiàlai) - to come down
+159. 下面 (xiàmiàn) - below; next
+160. 下去 (xiàqù) - to go down; to continue
+161. 小孩儿 (xiǎoháir) - child
+162. 小时候 (xiǎoshíhou) - when (one was) young
+163. 笑 (xiào) - to laugh; to smile
+164. 姓 (xìng) - surname; to be named
+165. 姓名 (xìngmíng) - full name
+166. 颜色 (yánsè) - color
+167. 眼睛 (yǎnjing) - eye
+168. 药 (yào) - medicine
+169. 药店 (yàodiàn) - pharmacy
+170. 爷爷 (yéye) - grandpa (paternal)
+171. 一会儿 (yīhuìr) - a little while
+172. 已经 (yǐjīng) - already
+173. 一起 (yīqǐ) - together
+174. 意思 (yìsi) - meaning; interesting (fun)
+175. 阴 (yīn) - overcast; cloudy
+176. 因为 (yīnwèi) - because
+177. 游 (yóu) - to swim; to travel
+178. 游泳 (yóuyǒng) - to swim
+179. 有意思 (yǒuyìsi) - interesting; fun
+180. 有时 (yǒushí) - sometimes
+181. 右 (yòu) - right (direction)
+182. 右边 (yòubian) - right side
+183. 鱼 (yú) - fish
+184. 远 (yuǎn) - far
+185. 运动 (yùndòng) - sports; to exercise
+186. 站 (zhàn) - station; to stand
+187. 丈夫 (zhàngfu) - husband
+188. 这么 (zhème) - like this; so
+189. 这样 (zhèyàng) - like this; such
+190. 着 (zhe) - particle: ongoing action/state
+191. 正 (zhèng) - just (now); exactly; upright
+192. 周 (Zhōu) - week
+193. 准备 (zhǔnbèi) - to prepare; to plan to
+194. 自己 (zìjǐ) - oneself; own
+195. 走 (zǒu) - to walk; to leave
+196. 走路 (zǒulù) - to walk
+197. 足球 (zúqiú) - soccer
+198. 最 (zuì) - most
+199. 左 (zuǒ) - left
+200. 左边 (zuǒbian) - left side

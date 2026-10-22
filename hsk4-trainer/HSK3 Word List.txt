@@ -1,0 +1,500 @@
+1. 阿姨 (āyí) - auntie; nanny
+2. 矮 (ǎi) - short (height)
+3. 爱人 (àiren) - spouse; husband/wife
+4. 安静 (ānjìng) - quiet; peaceful
+5. 安全 (ānquán) - safe; security
+6. 把 (bǎ) - measure word for objects with handles; to hold; to grasp
+7. 搬 (bān) - to move (house/things)
+8. 班级 (bānjí) - class (in school)
+9. 搬家 (bānjiā) - to move house
+10. 办 (bàn) - to handle; to do (business)
+11. 办法 (bànfǎ) - method; way
+12. 办公室 (bàngōngshì) - office
+13. 半天 (bàntiān) - a long time; half a day
+14. 帮助 (bāngzhù) - to help; help
+15. 饱 (bǎo) - full (after eating)
+16. 报纸 (bàozhǐ) - newspaper
+17. 北 (běi) - north
+18. 北方 (běifāng) - the north
+19. 被 (bèi) - (passive marker: by); quilt
+20. 笔记 (bǐjì) - notes
+21. 比较 (bǐjiào) - to compare; relatively
+22. 笔记本 (bǐjìběn) - notebook
+23. 比如 (bǐrú) - for example
+24. 比赛 (bǐsài) - competition; match
+25. 必须 (bìxū) - must; have to
+26. 变 (biàn) - to change
+27. 遍 (biàn) - measure word: (one) time (through)
+28. 变成 (biànchéng) - to turn into; to become
+29. 变化 (biànhuà) - change; to change
+30. 表演 (biǎoyǎn) - to perform; performance
+31. 别的 (biéde) - other; else
+32. 别人 (biéren) - other people
+33. 宾馆 (bīnguǎn) - hotel
+34. 冰 (bīng) - ice
+35. 冰激凌 (bīngjīlíng) - ice cream
+36. 冰箱 (bīngxiāng) - refrigerator
+37. 病人 (bìngrén) - patient (sick person)
+38. 不但 (bùdàn) - not only
+39. 不见 (bùjiàn) - to not see; to be missing
+40. 不用 (bùyòng) - no need to
+41. 不同 (bùtóng) - different
+42. 不久 (bùjiǔ) - soon; not long after
+43. 不行 (bùxíng) - won't work; not okay
+44. 才 (cái) - only (then); just now
+45. 菜单 (càidān) - menu
+46. 参加 (cānjiā) - to take part in; to attend
+47. 草 (cǎo) - grass
+48. 草地 (cǎodì) - lawn; meadow
+49. 层 (céng) - floor (story); layer; measure word
+50. 查 (chá) - to check; to look up
+51. 差 (chà) - not enough; poor (quality)
+52. 差不多 (chàbuduō) - almost; about the same
+53. 尝 (cháng) - to taste; to try
+54. 常 (cháng) - often; always
+55. 常见 (chángjiàn) - common
+56. 常用 (chángyòng) - commonly used
+57. 常常 (chángcháng) - often
+58. 衬衫 (chènshān) - shirt
+59. 成绩 (chéngjì) - grade (school); achievement
+60. 城市 (chéngshì) - city
+61. 迟到 (chídào) - to be late
+62. 出发 (chūfā) - to set off; to depart
+63. 出生 (chūshēng) - to be born
+64. 出院 (chūyuàn) - to leave the hospital
+65. 初中 (chūzhōng) - middle school
+66. 除了 (chúle) - besides; except for
+67. 船 (chuán) - boat; ship
+68. 春天 (chūntiān) - spring (season)
+69. 词典 (cídiǎn) - dictionary
+70. 聪明 (cōngming) - smart; clever
+71. 打扫 (dǎsǎo) - to clean
+72. 打算 (dǎsuàn) - to plan; plan
+73. 大概 (dàgài) - probably; roughly
+74. 大人 (dàren) - adult
+75. 大小 (dàxiǎo) - size
+76. 大熊猫 (dàxióngmāo) - giant panda
+77. 大衣 (dàyī) - overcoat
+78. 带 (dài) - to bring; to carry; to lead
+79. 担心 (dānxīn) - to worry
+80. 蛋糕 (dàngāo) - cake
+81. 当然 (dāngrán) - of course
+82. 到处 (dàochù) - everywhere
+83. 得 (dé) - to get; to obtain
+84. 得到 (dédào) - to get; to obtain
+85. 得分 (défēn) - to score (points)
+86. 的话 (dehuà) - if (...)
+87. 得 (děi) - must; to have to
+88. 灯 (dēng) - lamp; light
+89. 地 (dì) - land; ground; place
+90. 地点 (dìdiǎn) - location; place
+91. 地方 (dìfang) - place
+92. 地图 (dìtú) - map
+93. 电 (diàn) - electricity
+94. 电梯 (diàntī) - elevator
+95. 电子书 (diànzǐshū) - e-book
+96. 丢 (diū) - to lose; to throw away
+97. 东 (dōng) - east
+98. 东北 (Dōngběi) - Northeast (China)
+99. 东方 (Dōngfāng) - the East; Orient
+100. 东南 (dōngnán) - southeast
+101. 冬天 (dōngtiān) - winter
+102. 懂得 (dǒngde) - to understand
+103. 动物 (dòngwù) - animal
+104. 动物园 (dòngwùyuán) - zoo
+105. 短 (duǎn) - short
+106. 短裤 (duǎnkù) - shorts
+107. 段 (duàn) - section; paragraph; measure word
+108. 锻炼 (duànliàn) - to exercise; to work out
+109. 对话 (duìhuà) - conversation; dialogue
+110. 饿 (è) - hungry
+111. 而且 (érqiě) - and also; moreover
+112. 耳朵 (ěrduo) - ear
+113. 耳机 (ěrjī) - headphones
+114. 发 (fā) - to send out; to issue
+115. 发烧 (fāshāo) - to have a fever
+116. 发生 (fāshēng) - to happen
+117. 发现 (fāxiàn) - to discover; to find
+118. 发展 (fāzhǎn) - to develop; development
+119. 方便 (fāngbiàn) - convenient
+120. 方便面 (fāngbiànmiàn) - instant noodles
+121. 方法 (fāngfǎ) - method
+122. 方向 (fāngxiàng) - direction
+123. 房子 (fángzi) - house
+124. 放 (fàng) - to put; to place
+125. 放假 (fàngjià) - to be on vacation
+126. 放心 (fàngxīn) - to not worry; to feel at ease
+127. 放学 (fàngxué) - school lets out
+128. 分开 (fēnkāi) - to separate
+129. 风 (fēng) - wind
+130. 封 (fēng) - measure word for letters; to seal
+131. 夫妻 (fūqī) - married couple
+132. 服务 (fúwù) - service; to serve
+133. 附近 (fùjìn) - nearby
+134. 复习 (fùxí) - to review (for school)
+135. 该 (gāi) - should; ought to
+136. 干净 (gānjìng) - clean
+137. 感兴趣 (gǎnxìngqù) - to be interested
+138. 感到 (gǎndào) - to feel
+139. 感冒 (gǎnmào) - to catch a cold; (a) cold
+140. 干 (gàn) - to do; to work
+141. 刚 (gāng) - just (now); just barely
+142. 刚才 (gāngcái) - just now
+143. 刚刚 (gānggang) - just now; just recently
+144. 高铁 (gāotiě) - high-speed rail
+145. 根据 (gēnjù) - according to; based on
+146. 更 (gèng) - more; even more
+147. 公斤 (gōngjīn) - kilogram
+148. 公园 (gōngyuán) - park
+149. 工作日 (gōngzuòrì) - workday
+150. 故事 (gùshi) - story
+151. 刮 (guā) - to blow (wind)
+152. 关 (guān) - to close; to turn off
+153. 关机 (guānjī) - to turn off (a device)
+154. 关系 (guānxi) - relationship
+155. 关心 (guānxīn) - to care about
+156. 关于 (guānyú) - about; regarding
+157. 关注 (guānzhù) - to follow closely; to pay attention to
+158. 国家 (guójiā) - country
+159. 过节 (guòjié) - to celebrate a holiday
+160. 过去 (guòqù) - the past; to go over
+161. 海 (hǎi) - sea; ocean
+162. 害怕 (hàipà) - to be afraid
+163. 好多 (hǎoduō) - many; a lot
+164. 好久 (hǎojiǔ) - a long time
+165. 好像 (hǎoxiàng) - to seem; as if
+166. 号码 (hàomǎ) - number
+167. 河 (hé) - river
+168. 合适 (héshì) - suitable; appropriate
+169. 黑板 (hēibǎn) - blackboard
+170. 红绿灯 (hóng-lǜdēng) - traffic light
+171. 后来 (hòulái) - afterwards; later
+172. 后年 (hòunián) - the year after next
+173. 后天 (hòutiān) - the day after tomorrow
+174. 护照 (hùzhào) - passport
+175. 花园 (huāyuán) - garden
+176. 画家 (huàjiā) - painter (artist)
+177. 欢迎 (huānyíng) - to welcome
+178. 还 (huán) - to give back; to return (sth)
+179. 环境 (huánjìng) - environment
+180. 换 (huàn) - to exchange; to change
+181. 黄色 (huángsè) - yellow
+182. 回答 (huídá) - to answer; to reply
+183. 会 (huì) - can; to know how to; meeting
+184. 会议 (huìyì) - meeting
+185. 或 (huò) - or; maybe
+186. 或者 (huòzhě) - or
+187. 鸡 (jī) - chicken
+188. 几乎 (jīhū) - almost
+189. 机会 (jīhuì) - opportunity; chance
+190. 极 (jí) - extremely
+191. 急 (jí) - urgent; anxious
+192. 记 (jì) - to remember; to write down
+193. 季 (jì) - season
+194. 季节 (jìjié) - season
+195. 加 (Jiā) - to add; plus
+196. 假期 (jiàqī) - vacation
+197. 坚持 (jiānchí) - to persist; to insist on
+198. 检查 (jiǎnchá) - to check; to inspect
+199. 简单 (jiǎndān) - simple
+200. 检票 (jiǎnpiào) - to check tickets
+201. 健康 (jiànkāng) - healthy; health
+202. 见面 (jiànmiàn) - to meet (in person)
+203. 讲 (jiǎng) - to speak; to explain
+204. 角 (jiǎo) - corner; angle; (money) jiao/dime
+205. 脚 (jiǎo) - foot
+206. 接 (jiē) - to receive; to pick up (sb); to answer (phone)
+207. 街 (jiē) - street
+208. 节 (jié) - festival; section; measure word
+209. 结婚 (jiéhūn) - to get married
+210. 节目 (jiémù) - (TV/show) program
+211. 节日 (jiérì) - holiday; festival
+212. 结束 (jiéshù) - to end; to finish
+213. 解决 (jiějué) - to solve; to resolve
+214. 姐妹 (jiěmèi) - sisters
+215. 借 (jiè) - to borrow; to lend
+216. 斤 (jīn) - catty (unit of weight, ~500g)
+217. 经过 (jīngguò) - to pass by; process
+218. 经理 (jīnglǐ) - manager
+219. 久 (jiǔ) - (for) a long time
+220. 酒 (jiǔ) - alcohol; liquor
+221. 旧 (jiù) - old (not new)
+222. 句 (jù) - measure word for sentences
+223. 句子 (jùzi) - sentence
+224. 决定 (juédìng) - to decide; decision
+225. 卡 (kǎ) - card; to get stuck
+226. 开花 (kāihuā) - to bloom
+227. 开会 (kāihuì) - to have a meeting
+228. 开机 (kāijī) - to turn on (a device)
+229. 开心 (kāixīn) - happy
+230. 看来 (kànlai) - it seems (that)
+231. 可 (kě) - can; may
+232. 渴 (kě) - thirsty
+233. 可爱 (kěài) - cute; adorable
+234. 可是 (kěshì) - but; however
+235. 刻 (kè) - quarter hour; to carve
+236. 课本 (kèběn) - textbook
+237. 客人 (kèrén) - guest
+238. 课文 (kèwén) - (lesson) text
+239. 空调 (kōngtiáo) - air conditioner
+240. 哭 (kū) - to cry
+241. 筷子 (kuàizi) - chopsticks
+242. 矿泉水 (kuàngquánshuǐ) - mineral water
+243. 来自 (láizì) - to come from
+244. 蓝 (lán) - blue
+245. 老 (lǎo) - old
+246. 老人 (lǎorén) - elderly person
+247. 离开 (líkāi) - to leave
+248. 礼物 (lǐwù) - gift
+249. 历史 (lìshǐ) - history
+250. 脸 (liǎn) - face
+251. 练 (liàn) - to practice
+252. 练习 (liànxí) - to practice; exercise
+253. 凉快 (liángkuai) - nice and cool
+254. 辆 (liàng) - measure word for vehicles
+255. 聊 (liáo) - to chat
+256. 聊天儿 (liáotiānr) - to chat
+257. 了解 (liǎojiě) - to understand; to find out
+258. 邻居 (línjū) - neighbor
+259. 留学 (liúxué) - to study abroad
+260. 留学生 (liúxuéshēng) - student studying abroad
+261. 楼梯 (lóutī) - stairs
+262. 路边 (lùbiān) - roadside
+263. 路口 (lùkǒu) - intersection
+264. 马 (Mǎ) - horse
+265. 马路 (mǎlù) - street; road
+266. 马上 (mǎshàng) - right away; immediately
+267. 满意 (mǎnyì) - satisfied
+268. 毛 (máo) - hair; (money) dime
+269. 米 (mǐ) - meter (unit); rice
+270. 面前 (miànqián) - in front of
+271. 明白 (míngbai) - to understand; clear
+272. 名单 (míngdān) - list (of names)
+273. 名人 (míngrén) - celebrity
+274. 南 (nán) - south
+275. 难 (nán) - difficult
+276. 南方 (nánfāng) - the south
+277. 难过 (nánguò) - to feel sad
+278. 难看 (nánkàn) - ugly
+279. 男人 (nánrén) - man
+280. 男生 (nánshēng) - boy; male student
+281. 难题 (nántí) - difficult problem
+282. 难听 (nántīng) - unpleasant to hear
+283. 年级 (niánjí) - grade (school)
+284. 年轻 (niánqīng) - young
+285. 牛 (niú) - cow; ox; (slang) awesome
+286. 努力 (nǔlì) - to try hard; hard-working
+287. 女人 (nǚrén) - woman
+288. 女生 (nǚshēng) - girl; female student
+289. 爬 (pá) - to climb; to crawl
+290. 怕 (pà) - to be afraid
+291. 拍照 (pāizhào) - to take a photo
+292. 盘子 (pánzi) - plate
+293. 胖 (pàng) - fat; chubby
+294. 啤酒 (píjiǔ) - beer
+295. 平时 (píngshí) - usually; normally
+296. 瓶子 (píngzi) - bottle
+297. 骑 (qí) - to ride (a bike/horse)
+298. 奇怪 (qíguài) - strange; odd
+299. 其实 (qíshí) - actually; in fact
+300. 其他 (qítā) - other; the rest
+301. 起 (qǐ) - to get up; to rise
+302. 起飞 (qǐfēi) - to take off (plane)
+303. 汽车 (qìchē) - car
+304. 铅笔 (qiānbǐ) - pencil
+305. 前年 (qiánnián) - the year before last
+306. 前天 (qiántiān) - the day before yesterday
+307. 清楚 (qīngchu) - clear
+308. 请假 (qǐngjià) - to ask for time off
+309. 请客 (qǐngkè) - to treat (sb to a meal)
+310. 秋天 (qiūtiān) - autumn
+311. 球场 (qiúchǎng) - court; field (sports)
+312. 裙子 (qúnzi) - skirt
+313. 然后 (ránhòu) - then; after that
+314. 热情 (rèqíng) - warm; enthusiastic
+315. 认得 (rènde) - to recognize
+316. 认为 (rènwéi) - to think; to believe
+317. 认真 (rènzhēn) - serious; conscientious
+318. 容易 (róngyì) - easy
+319. 如果 (rúguǒ) - if
+320. 伞 (sǎn) - umbrella
+321. 扫 (sǎo) - to sweep
+322. 沙发 (shāfā) - sofa
+323. 山 (shān) - mountain
+324. 上衣 (shàngyī) - jacket; top
+325. 勺子 (sháozi) - spoon; ladle
+326. 身边 (shēnbiān) - by one's side
+327. 身高 (shēngāo) - height (of a person)
+328. 声 (shēng) - sound
+329. 生活 (shēnghuó) - life; to live
+330. 生气 (shēngqì) - to get angry
+331. 声音 (shēngyīn) - sound; voice
+332. 市 (shì) - city; market
+333. 试 (shì) - to try; test
+334. 室 (shì) - room
+335. 世界 (shìjiè) - world
+336. 收 (shōu) - to receive; to accept
+337. 收到 (shōudào) - to receive
+338. 受 (shòu) - to receive; to suffer (fig.)
+339. 瘦 (shòu) - thin; skinny
+340. 受到 (shòudào) - to receive (praise, punishment, etc.)
+341. 叔叔 (shūshu) - uncle (father's younger brother)
+342. 树 (shù) - tree
+343. 数学 (shùxué) - math
+344. 刷 (shuā) - to brush
+345. 双 (shuāng) - pair; both
+346. 水平 (shuǐpíng) - level; standard
+347. 司机 (sījī) - driver
+348. 四季 (sìjì) - the four seasons
+349. 太阳 (tàiyang) - sun
+350. 糖 (táng) - sugar; candy
+351. 特别 (tèbié) - special; especially
+352. 提高 (tígāo) - to raise; to improve
+353. 体育 (tǐyù) - sports; PE
+354. 体育馆 (tǐyùguǎn) - gym
+355. 甜 (tián) - sweet
+356. 跳 (tiào) - to jump
+357. 听说 (tīngshuō) - to hear (that); I heard...
+358. 挺 (tǐng) - quite; very
+359. 同事 (tóngshì) - colleague
+360. 同意 (tóngyì) - to agree
+361. 头发 (tóufa) - hair (on head)
+362. 突然 (tūrán) - suddenly; sudden
+363. 图书馆 (túshūguǎn) - library
+364. 腿 (tuǐ) - leg
+365. 外地 (wàidì) - elsewhere (in the country)
+366. 外卖 (wàimài) - takeout (food)
+367. 外语 (wàiyǔ) - foreign language
+368. 完成 (wánchéng) - to complete; to finish
+369. 碗 (wǎn) - bowl
+370. 晚点 (wǎndiǎn) - delayed; late (of a train etc)
+371. 晚会 (wǎnhuì) - evening party
+372. 网球 (wǎngqiú) - tennis
+373. 网站 (wǎngzhàn) - website
+374. 忘记 (wàngjì) - to forget
+375. 为 (wèi) - for; because of
+376. 为了 (wèile) - in order to; for
+377. 卫生间 (wèishēngjiān) - bathroom; restroom
+378. 文化 (wénhuà) - culture
+379. 屋子 (wūzi) - room
+380. 西 (Xī) - west
+381. 西北 (Xīběi) - northwest (China)
+382. 西方 (Xīfāng) - the West
+383. 西瓜 (xīguā) - watermelon
+384. 西南 (xīnán) - southwest
+385. 习惯 (xíguàn) - habit; to be used to
+386. 喜爱 (xǐài) - to like; to be fond of
+387. 洗衣机 (xǐyījī) - washing machine
+388. 洗澡 (xǐzǎo) - to take a shower/bath
+389. 夏天 (xiàtiān) - summer
+390. 先 (xiān) - first
+391. 香蕉 (xiāngjiāo) - banana
+392. 相信 (xiāngxìn) - to believe
+393. 箱子 (xiāngzi) - box; suitcase
+394. 向 (xiàng) - towards; to
+395. 像 (xiàng) - to be like; to resemble
+396. 相机 (xiàngjī) - camera
+397. 小区 (xiǎoqū) - neighborhood; residential area
+398. 小心 (xiǎoxīn) - to be careful
+399. 校园 (xiàoyuán) - campus
+400. 校长 (xiàozhǎng) - principal (school)
+401. 鞋 (xié) - shoe
+402. 心里 (xīnli) - in one's heart/mind
+403. 新年 (xīnnián) - New Year
+404. 新闻 (xīnwén) - news
+405. 新鲜 (xīnxiān) - fresh
+406. 信 (xìn) - letter; to believe
+407. 信用卡 (xìnyòngkǎ) - credit card
+408. 行 (xíng) - OK; to go; capable
+409. 行李 (xíngli) - luggage
+410. 兴趣 (xìngqù) - interest (hobby)
+411. 休假 (xiūjià) - to take a vacation
+412. 需要 (xūyào) - to need
+413. 选 (xuǎn) - to choose
+414. 选择 (xuǎnzé) - to choose; choice
+415. 学期 (xuéqī) - semester
+416. 牙 (yá) - tooth
+417. 牙刷 (yáshuā) - toothbrush
+418. 羊 (yáng) - sheep; goat
+419. 养 (yǎng) - to raise (kids/pets)
+420. 要求 (yāoqiú) - to require; requirement
+421. 页 (yè) - page
+422. 一定 (yīdìng) - certainly; definitely
+423. 一共 (yīgòng) - altogether; in total
+424. 一块儿 (yīkuàir) - together
+425. 一样 (yīyàng) - the same
+426. 以后 (yǐhòu) - afterwards; later
+427. 以前 (yǐqián) - before; previously
+428. 以上 (yǐshàng) - above; more than
+429. 以外 (yǐwài) - apart from; besides
+430. 以为 (yǐwéi) - to assume; to think (mistakenly)
+431. 以下 (yǐxià) - below; less than
+432. 一般 (yībān) - ordinary; generally
+433. 一边 (yībiān) - (on) one side; while (doing two things)
+434. 一直 (yīzhí) - always; continuously
+435. 音乐 (yīnyuè) - music
+436. 银行 (yínháng) - bank
+437. 银行卡 (yínhángkǎ) - bank card
+438. 饮料 (yǐnliào) - drink; beverage
+439. 应该 (yīnggāi) - should; ought to
+440. 影响 (yǐngxiǎng) - to influence; influence
+441. 用 (yòng) - to use
+442. 邮件 (yóujiàn) - mail; email
+443. 游客 (yóukè) - tourist
+444. 游戏 (yóuxì) - game
+445. 邮箱 (yóuxiāng) - mailbox; email
+446. 有关 (yǒuguān) - related to; concerning
+447. 有名 (yǒumíng) - famous
+448. 有用 (yǒuyòng) - useful
+449. 又 (yòu) - again
+450. 羽毛球 (yǔmáoqiú) - badminton
+451. 语言 (yǔyán) - language
+452. 雨衣 (yǔyī) - raincoat
+453. 遇到 (yùdào) - to run into; to encounter
+454. 遇见 (yùjiàn) - to run into; to meet
+455. 园 (yuán) - garden; park (suffix)
+456. 员 (yuán) - member; person (suffix)
+457. 愿意 (yuànyì) - willing; to want to
+458. 越 (Yuè) - more and more; increasingly
+459. 月亮 (yuèliang) - the moon
+460. 运动会 (yùndònghuì) - sports meet; games
+461. 运动员 (yùndòngyuán) - athlete
+462. 咱们 (zánmen) - we (incl. listener)
+463. 脏 (zāng) - dirty
+464. 怎么办 (zěnmebàn) - what to do?
+465. 怎样 (zěnyàng) - how; what kind
+466. 站 (zhàn) - station; to stand
+467. 张 (zhāng) - measure word for flat objects
+468. 长 (zhǎng) - to grow; chief; elder
+469. 着急 (zháojí) - to worry; to be anxious
+470. 照 (zhào) - to shine on; to take (a photo); according to
+471. 照顾 (zhàogu) - to take care of
+472. 照片 (zhàopiàn) - photo
+473. 照相 (zhàoxiàng) - to take a photo
+474. 直到 (zhídào) - until
+475. 只 (zhǐ) - only; just
+476. 纸 (zhǐ) - paper
+477. 只能 (zhǐnéng) - can only
+478. 只是 (zhǐshì) - just; only; but
+479. 只要 (zhǐyào) - as long as; so long as
+480. 只有 (zhǐyǒu) - only if; only when
+481. 中 (Zhōng) - China; Chinese
+482. 中间 (zhōngjiān) - the middle; between
+483. 终于 (zhōngyú) - finally; at last
+484. 种 (zhǒng) - kind; type; measure word
+485. 重要 (zhòngyào) - important
+486. 周末 (zhōumò) - weekend
+487. 主要 (zhǔyào) - main; primary
+488. 注意 (zhùyì) - to pay attention to
+489. 住院 (zhùyuàn) - to be in the hospital
+490. 字典 (zìdiǎn) - (Chinese character) dictionary
+491. 自行车 (zìxíngchē) - bicycle
+492. 子 (zi) - (noun suffix)
+493. 总 (zǒng) - always; overall; general
+494. 总是 (zǒngshì) - always
+495. 嘴 (zuǐ) - mouth
+496. 最好 (zuìhǎo) - best; had better
+497. 最后 (zuìhòu) - final; last; finally
+498. 最近 (zuìjìn) - recently
+499. 做客 (zuòkè) - to be a guest
+500. 作业 (zuòyè) - homework

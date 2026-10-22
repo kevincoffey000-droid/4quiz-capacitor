@@ -1,0 +1,300 @@
+1. 爱 (ài) - to love
+2. 八 (bā) - eight
+3. 爸爸 (bàba) - dad
+4. 吧 (ba) - particle: suggestion / guess
+5. 白天 (báitiān) - daytime
+6. 百 (bǎi) - hundred
+7. 半 (bàn) - half
+8. 包子 (bāozi) - steamed bun
+9. 杯子 (bēizi) - cup
+10. 本 (běn) - measure word for books; this
+11. 边 (biān) - side; edge
+12. 病 (bìng) - illness; to be sick
+13. 不 (bù) - not; no
+14. 不客气 (bùkèqi) - you're welcome
+15. 不要 (bùyào) - don't; must not
+16. 菜 (cài) - vegetable; dish
+17. 茶 (chá) - tea
+18. 唱 (chàng) - to sing
+19. 超市 (chāoshì) - supermarket
+20. 车 (chē) - car; vehicle
+21. 吃 (chī) - to eat
+22. 出租车 (chūzūchē) - taxi
+23. 穿 (chuān) - to wear (clothes)
+24. 打电话 (dǎdiànhuà) - to make a phone call
+25. 大 (dà) - big; large
+26. 大家 (dàjiā) - everyone
+27. 大学 (Dàxué) - university
+28. 大学生 (dàxuéshēng) - college student
+29. 到 (dào) - to arrive; to reach
+30. 的 (de) - particle: possessive ('s)
+31. 第 (dì) - prefix for ordinal numbers
+32. 弟弟 (dìdi) - younger brother
+33. 点 (diǎn) - o'clock; point; to order (food)
+34. 店 (diàn) - shop; store
+35. 电话 (diànhuà) - telephone
+36. 电脑 (diànnǎo) - computer
+37. 电视 (diànshì) - television
+38. 电影 (diànyǐng) - movie
+39. 电影院 (diànyǐngyuàn) - movie theater
+40. 东西 (dōngxi) - thing; stuff
+41. 都 (dōu) - all; both
+42. 读 (dú) - to read
+43. 读书 (dúshū) - to study; to read
+44. 对 (duì) - correct; right; towards
+45. 对不起 (duìbuqǐ) - sorry; excuse me
+46. 多 (duō) - many; much
+47. 多少 (duōshao) - how much/many
+48. 儿子 (érzi) - son
+49. 二 (èr) - two
+50. 饭 (fàn) - meal; rice
+51. 饭店 (fàndiàn) - restaurant
+52. 房间 (fángjiān) - room
+53. 非常 (fēicháng) - very; extremely
+54. 飞机 (fēijī) - airplane
+55. 分 (fēn) - minute; point; cent
+56. 分钟 (fēnzhōng) - minute
+57. 高兴 (gāoxìng) - happy; glad
+58. 歌 (gē) - song
+59. 哥哥 (gēge) - older brother
+60. 个 (gè) - measure word (general)
+61. 给 (gěi) - to give; for
+62. 公司 (gōngsī) - company
+63. 工作 (gōngzuò) - to work; job
+64. 狗 (gǒu) - dog
+65. 贵 (guì) - expensive
+66. 国 (guó) - country
+67. 还 (hái) - still; also
+68. 孩子 (háizi) - child
+69. 汉语 (Hànyǔ) - Chinese (language)
+70. 汉字 (hànzì) - Chinese character
+71. 好 (hǎo) - good; well
+72. 好吃 (hǎochī) - tasty; delicious
+73. 好看 (hǎokàn) - good-looking; nice
+74. 好听 (hǎotīng) - pleasant to hear (of sound)
+75. 好玩儿 (hǎowánr) - fun; amusing
+76. 号 (hào) - day (of month); number; size
+77. 喝 (hē) - to drink
+78. 和 (hé) - and; with
+79. 很 (hěn) - very
+80. 后 (hòu) - after; behind
+81. 回 (huí) - to return; to go back
+82. 会 (huì) - can; to know how to; meeting
+83. 火车 (huǒchē) - train
+84. 鸡蛋 (jīdàn) - egg
+85. 几 (jǐ) - how many; several
+86. 家 (jiā) - home; family
+87. 家人 (jiārén) - family member
+88. 见 (jiàn) - to see; to meet
+89. 件 (jiàn) - measure word for items/clothes
+90. 饺子 (jiǎozi) - dumpling
+91. 叫 (jiào) - to be called; to call
+92. 姐姐 (jiějie) - older sister
+93. 今年 (jīnnián) - this year
+94. 今天 (jīntiān) - today
+95. 九 (jiǔ) - nine
+96. 觉得 (juéde) - to feel; to think
+97. 开 (kāi) - to open; to turn on
+98. 开车 (kāichē) - to drive
+99. 看 (kàn) - to look at; to watch; to read
+100. 看病 (kànbìng) - to see a doctor
+101. 看见 (kànjiàn) - to see; to catch sight of
+102. 可以 (kěyǐ) - can; may
+103. 课 (kè) - class; lesson
+104. 口 (kǒu) - mouth; measure word for people
+105. 块 (kuài) - piece; (money) dollar/yuan
+106. 来 (lái) - to come
+107. 老师 (lǎoshī) - teacher
+108. 了 (le) - particle: completed action / change
+109. 冷 (lěng) - cold
+110. 里 (lǐ) - inside; in
+111. 两 (liǎng) - two (of); a couple
+112. 零 (líng) - zero
+113. 六 (liù) - six
+114. 妈妈 (māma) - mom
+115. 吗 (ma) - particle: yes/no question
+116. 买 (mǎi) - to buy
+117. 卖 (mài) - to sell
+118. 忙 (máng) - busy
+119. 猫 (māo) - cat
+120. 没关系 (méiguānxi) - it doesn't matter
+121. 没事 (méishì) - no problem; it's fine
+122. 没有 (méiyǒu) - to not have; there isn't
+123. 妹妹 (mèimei) - younger sister
+124. 们 (men) - plural suffix (for people)
+125. 米饭 (mǐfàn) - cooked rice
+126. 面包 (miànbāo) - bread
+127. 面条儿 (miàntiáor) - noodles
+128. 明年 (míngnián) - next year
+129. 明天 (míngtiān) - tomorrow
+130. 名字 (míngzi) - name
+131. 哪 (nǎ) - which
+132. 哪个 (nǎge) - which one
+133. 哪里 (nǎlǐ) - where
+134. 哪儿 (nǎr) - where
+135. 哪些 (nǎxiē) - which ones
+136. 那 (nà) - that
+137. 那边 (nàbian) - over there
+138. 那个 (nàge) - that one
+139. 那里 (nàli) - there
+140. 那儿 (nàr) - there
+141. 那些 (nàxiē) - those
+142. 男 (nán) - male
+143. 男朋友 (nánpéngyou) - boyfriend
+144. 呢 (ne) - particle: and...? / continuation
+145. 能 (néng) - can; to be able to
+146. 你 (nǐ) - you
+147. 你好 (nǐhǎo) - hello
+148. 你们 (nǐmen) - you (plural)
+149. 年 (nián) - year
+150. 您 (nín) - you (polite)
+151. 牛奶 (niúnǎi) - milk
+152. 女 (nǚ) - female; woman
+153. 女儿 (nǚér) - daughter
+154. 女朋友 (nǚpéngyou) - girlfriend
+155. 女士 (nǚshì) - lady; madam
+156. 朋友 (péngyou) - friend
+157. 便宜 (piányi) - cheap
+158. 漂亮 (piàoliang) - pretty; beautiful
+159. 苹果 (píngguǒ) - apple
+160. 七 (qī) - seven
+161. 起床 (qǐchuáng) - to get up
+162. 千 (qiān) - thousand
+163. 前 (qián) - front; before
+164. 钱 (qián) - money
+165. 请 (qǐng) - please; to invite
+166. 请问 (qǐngwèn) - excuse me (may I ask)
+167. 去 (qù) - to go
+168. 去年 (qùnián) - last year
+169. 热 (rè) - hot
+170. 人 (rén) - person; people
+171. 认识 (rènshi) - to know (a person); to recognize
+172. 日 (Rì) - day; sun
+173. 三 (sān) - three
+174. 商店 (shāngdiàn) - store; shop
+175. 上 (shàng) - up; above; to go to (class)
+176. 上班 (shàngbān) - to go to work
+177. 上课 (shàngkè) - to go to class
+178. 上午 (shàngwǔ) - morning
+179. 上学 (shàngxué) - to go to school
+180. 少 (shǎo) - few; less
+181. 谁 (shéi) - who
+182. 什么 (shénme) - what
+183. 生病 (shēngbìng) - to get sick
+184. 十 (shí) - ten
+185. 时候 (shíhou) - time (moment)
+186. 时间 (shíjiān) - time
+187. 事 (shì) - matter; thing
+188. 是 (shì) - to be; yes
+189. 手机 (shǒujī) - cell phone
+190. 书 (Shū) - book
+191. 书店 (shūdiàn) - bookstore
+192. 水 (shuǐ) - water
+193. 水果 (shuǐguǒ) - fruit
+194. 睡 (shuì) - to sleep
+195. 睡觉 (shuìjiào) - to sleep
+196. 说 (shuō) - to speak; to say
+197. 说话 (shuōhuà) - to talk; to speak
+198. 四 (sì) - four
+199. 岁 (suì) - years old
+200. 他 (tā) - he; him
+201. 它 (tā) - it
+202. 她 (tā) - she
+203. 他们 (tāmen) - they
+204. 它们 (tāmen) - they (things)
+205. 她们 (tāmen) - they (women)
+206. 太 (tài) - too (much); very
+207. 天 (tiān) - day; sky
+208. 天气 (tiānqì) - weather
+209. 听 (tīng) - to listen; to hear
+210. 听见 (tīngjiàn) - to hear
+211. 同学 (tóngxué) - classmate
+212. 外 (wài) - outside; foreign
+213. 外边 (wàibian) - outside
+214. 玩 (wán) - to play
+215. 晚 (wǎn) - late; evening
+216. 晚饭 (wǎnfàn) - dinner
+217. 晚上 (wǎnshang) - evening
+218. 喂 (wèi) - hey; hello (on phone)
+219. 问 (wèn) - to ask
+220. 问题 (wèntí) - question; problem
+221. 我 (wǒ) - I; me
+222. 我们 (wǒmen) - we; us
+223. 五 (wǔ) - five
+224. 午饭 (wǔfàn) - lunch
+225. 喜欢 (xǐhuan) - to like
+226. 下 (xià) - down; below; next
+227. 下雨 (xiàyǔ) - to rain
+228. 下班 (xiàbān) - to get off work
+229. 下课 (xiàkè) - to finish class
+230. 下午 (xiàwǔ) - afternoon
+231. 先生 (xiānsheng) - mister; sir; husband
+232. 现在 (xiànzài) - now
+233. 想 (xiǎng) - to want; to think; to miss
+234. 小 (xiǎo) - small
+235. 小朋友 (xiǎopéngyǒu) - child; kid
+236. 小时 (xiǎoshí) - hour
+237. 小学 (xiǎoxué) - elementary school
+238. 小学生 (xiǎoxuéshēng) - elementary student
+239. 些 (xiē) - some; a few
+240. 写 (xiě) - to write
+241. 谢谢 (xièxie) - thank you
+242. 新 (Xīn) - new
+243. 星期 (xīngqī) - week
+244. 星期日 (Xīngqīrì) - Sunday
+245. 星期天 (Xīngqītiān) - Sunday
+246. 休息 (xiūxi) - to rest
+247. 学 (xué) - to learn; to study
+248. 学生 (xuésheng) - student
+249. 学习 (xuéxí) - to study; to learn
+250. 学校 (xuéxiào) - school
+251. 雪 (xuě) - snow
+252. 要 (yào) - to want; will
+253. 也 (yě) - also; too
+254. 一 (yī) - one
+255. 衣服 (yīfu) - clothes
+256. 医生 (yīshēng) - doctor
+257. 医院 (yīyuàn) - hospital
+258. 一半 (yībàn) - half
+259. 一下 (yíxià) - (do sth) a bit / briefly
+260. 椅子 (yǐzi) - chair
+261. 一点儿 (yīdiǎnr) - a little bit
+262. 一些 (yīxiē) - some; a few
+263. 有 (yǒu) - to have; there is
+264. 有的 (yǒude) - some (of them)
+265. 有点儿 (yǒudiǎnr) - a little; somewhat
+266. 有些 (yǒuxiē) - some; somewhat
+267. 雨 (yǔ) - rain
+268. 元 (Yuán) - yuan (unit of money)
+269. 月 (yuè) - month; moon
+270. 再 (zài) - again
+271. 在 (zài) - at; in; (be) -ing
+272. 再见 (zàijiàn) - goodbye
+273. 早 (zǎo) - early; good morning
+274. 早饭 (zǎofàn) - breakfast
+275. 早上 (zǎoshang) - morning
+276. 怎么 (zěnme) - how; why
+277. 怎么样 (zěnmeyàng) - how about it?
+278. 找 (zhǎo) - to look for; to find
+279. 这 (zhè) - this
+280. 这边 (zhèbiān) - here; this side
+281. 这个 (zhège) - this one
+282. 这里 (zhèlǐ) - here
+283. 这儿 (zhèr) - here
+284. 这些 (zhèxiē) - these
+285. 真 (zhēn) - really; true
+286. 正在 (zhèngzài) - in the process of (-ing)
+287. 只 (zhī) - measure word for animals
+288. 知道 (zhīdào) - to know
+289. 中国 (Zhōngguó) - China
+290. 中文 (Zhōngwén) - Chinese (language)
+291. 中午 (zhōngwǔ) - noon
+292. 中学 (zhōngxué) - middle school
+293. 中学生 (zhōngxuéshēng) - middle school student
+294. 住 (zhù) - to live (somewhere)
+295. 桌子 (zhuōzi) - table
+296. 字 (zì) - character (written)
+297. 昨天 (zuótiān) - yesterday
+298. 坐 (zuò) - to sit; to take (transport)
+299. 做 (zuò) - to do; to make
+300. 做饭 (zuòfàn) - to cook
